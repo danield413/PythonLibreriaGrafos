@@ -1,0 +1,282 @@
+[
+    {
+        "dato": "Gadner",
+        "adyacencias": [
+            {
+                "destino": "Euler",
+                "peso": 415
+            },
+            {
+                "destino": "Voronoi",
+                "peso": 170
+            },
+            {
+                "destino": "Fibonacci",
+                "peso": 310
+            }
+        ],
+        "X": 90,
+        "Y": 150,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Fibonacci",
+        "adyacencias": [
+            {
+                "destino": "Gadner",
+                "peso": 310
+            },
+            {
+                "destino": "Voronoi",
+                "peso": 299
+            },
+            {
+                "destino": "Casita",
+                "peso": 345
+            },
+            {
+                "destino": "Fahrenheit",
+                "peso": 450
+            },
+            {
+                "destino": "Hilbert",
+                "peso": 250
+            }
+        ],
+        "X": 80,
+        "Y": 390,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Hilbert",
+        "adyacencias": [
+            {
+                "destino": "Fibonacci",
+                "peso": 250
+            },
+            {
+                "destino": "Fahrenheit",
+                "peso": 230
+            },
+            {
+                "destino": "Celsius",
+                "peso": 312
+            }
+        ],
+        "X": 250,
+        "Y": 470,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Celsius",
+        "adyacencias": [
+            {
+                "destino": "Hilbert",
+                "peso": 312
+            },
+            {
+                "destino": "Fahrenheit",
+                "peso": 255
+            },
+            {
+                "destino": "Ritcher",
+                "peso": 280
+            },
+            {
+                "destino": "Konisberg",
+                "peso": 450
+            }
+        ],
+        "X": 630,
+        "Y": 450,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Konisberg",
+        "adyacencias": [
+            {
+                "destino": "Celsius",
+                "peso": 450
+            },
+            {
+                "destino": "Ritcher",
+                "peso": 225
+            },
+            {
+                "destino": "Gauss",
+                "peso": 275
+            },
+            {
+                "destino": "Euler",
+                "peso": 300
+            }
+        ],
+        "X": 640,
+        "Y": 120,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Euler",
+        "adyacencias": [
+            {
+                "destino": "Konisberg",
+                "peso": 300
+            },
+            {
+                "destino": "Gauss",
+                "peso": 230
+            },
+            {
+                "destino": "Casita",
+                "peso": 330
+            },
+            {
+                "destino": "Voronoi",
+                "peso": 317
+            },
+            {
+                "destino": "Gadner",
+                "peso": 415
+            }
+        ],
+        "X": 350,
+        "Y": 60,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Voronoi",
+        "adyacencias": [
+            {
+                "destino": "Euler",
+                "peso": 317
+            },
+            {
+                "destino": "Casita",
+                "peso": 190
+            },
+            {
+                "destino": "Gadner",
+                "peso": 170
+            },
+            {
+                "destino": "Fibonacci",
+                "peso": 299
+            }
+        ],
+        "X": 220,
+        "Y": 200,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Casita",
+        "adyacencias": [
+            {
+                "destino": "Voronoi",
+                "peso": 190
+            },
+            {
+                "destino": "Euler",
+                "peso": 330
+            },
+            {
+                "destino": "Gauss",
+                "peso": 180
+            },
+            {
+                "destino": "Fahrenheit",
+                "peso": 180
+            },
+            {
+                "destino": "Fibonacci",
+                "peso": 345
+            }
+        ],
+        "X": 350,
+        "Y": 300,
+        "rutaImagen": "./images/casita.png"
+    },
+    {
+        "dato": "Fahrenheit",
+        "adyacencias": [
+            {
+                "destino": "Casita",
+                "peso": 180
+            },
+            {
+                "destino": "Gauss",
+                "peso": 314
+            },
+            {
+                "destino": "Ritcher",
+                "peso": 267
+            },
+            {
+                "destino": "Hilbert",
+                "peso": 230
+            },
+            {
+                "destino": "Fibonacci",
+                "peso": 450
+            },
+            {
+                "destino": "Celsius",
+                "peso": 255
+            }
+        ],
+        "X": 450,
+        "Y": 400,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Gauss",
+        "adyacencias": [
+            {
+                "destino": "Fahrenheit",
+                "peso": 314
+            },
+            {
+                "destino": "Ritcher",
+                "peso": 198
+            },
+            {
+                "destino": "Konisberg",
+                "peso": 275
+            },
+            {
+                "destino": "Euler",
+                "peso": 230
+            },
+            {
+                "destino": "Casita",
+                "peso": 180
+            }
+        ],
+        "X": 450,
+        "Y": 220,
+        "rutaImagen": "./images/libreria.png"
+    },
+    {
+        "dato": "Ritcher",
+        "adyacencias": [
+            {
+                "destino": "Gauss",
+                "peso": 198
+            },
+            {
+                "destino": "Fahrenheit",
+                "peso": 267
+            },
+            {
+                "destino": "Celsius",
+                "peso": 280
+            },
+            {
+                "destino": "Konisberg",
+                "peso": 225
+            }
+        ],
+        "X": 580,
+        "Y": 300,
+        "rutaImagen": "./images/libreria.png"
+    }
+]
