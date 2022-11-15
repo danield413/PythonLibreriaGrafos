@@ -53,7 +53,7 @@ class Grafo():
             lista.append(obstruido)        
         return lista
 
-    def convertirADirigido(self):
+    def convertirANoDirigido(self):
         for arista in self.ListaAristas:
             if( not self.obtenerArista(arista.getDestino(), arista.getOrigen()) ):
                 self.ingresarArista(arista.getDestino(), arista.getOrigen(), arista.getPeso())
@@ -134,6 +134,13 @@ class Grafo():
     def obtenerArista(self, origen, destino) -> Arista:
         for arista in self.ListaAristas:
             if (arista.getOrigen() == origen and arista.getDestino() == destino):
+                return arista
+        return None
+
+    #* a diferencia del de arriba, este retorna la arista si existe, pero no importa el orden de los parametros (origen, destino) o (destino, origen), este método lo usa Dijkstra
+    def obtenerArista2(self, origen, destino) -> Arista:
+        for arista in self.ListaAristas:
+            if (arista.getOrigen() == origen and arista.getDestino() == destino) or (arista.getOrigen() == destino and arista.getDestino() == origen):
                 return arista
         return None
     
@@ -294,7 +301,7 @@ class Grafo():
             valorActual = caminos[indice]
             for vAdya in aux.getAdyacentes():
                 indiceNuevo = self.listaVertices.index(self.obtenerOrigen(vAdya))
-                arista = self.obtenerArista(vAdya, aux.dato)
+                arista = self.obtenerArista2(vAdya, aux.dato)
                 if caminos[indiceNuevo] > valorActual + arista.getPeso():
                     caminos[indiceNuevo] = valorActual + arista.getPeso()
                     # caminos[indiceNuevo] = {

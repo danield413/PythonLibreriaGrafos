@@ -31,8 +31,8 @@ def cargarGrafo():
         for adyacente in vertice["adyacencias"]:
             grafo.ingresarArista(vertice["dato"], adyacente["destino"], adyacente["peso"])
 
-    #* Identificar si es no dirigido y convertirlo a dirigido
-    print("Es dirigido", grafo.esDirigido())
+    # verifica y convertir el grado
+    grafo.convertirANoDirigido()
 
     # Crear grafo en tkinter
     for vertice in listaVertices:

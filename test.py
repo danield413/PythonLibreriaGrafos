@@ -32,12 +32,15 @@ grafo.ingresarArista("Pereira", "Tulua", 80)
 grafo.ingresarArista("Tulua", "Pereira", 80)
 
 grafo.ingresarArista("Cali", "Tulua", 110)
+grafo.ingresarArista("Tulua", "Cali", 110)
 
 grafo.ingresarArista("Cali", "Pereira", 100)
+grafo.ingresarArista("Pereira", "Cali", 100)
 
-print( len(grafo.getListaAristas()) )
-grafo.convertirADirigido()
-print( len(grafo.getListaAristas()) )
+
+# print( len(grafo.getListaAristas()) )
+# grafo.convertirANoDirigido()
+# print( len(grafo.getListaAristas()) )
 
 # print("--------------------------------------")
 
@@ -83,12 +86,12 @@ print( len(grafo.getListaAristas()) )
 # for i in grafo.getObstruidos():
 #     print(i)
 
-# print("\n >>>> Recorrido - Algoritmo Prim \n")
-# grafo.prim()
-# print("\n >>>> Recorrido - Algoritmo Boruvka \n")
-# grafo.boruvka()
-# print("\n >>>> Recorrido - Algoritmo Kruskal \n")
-# grafo.kruskal()
-# print("\n >>>> Camino más corto - Algoritmo Dijkstra \n")
-# grafo.dijkstra("Monteria")
+print("\n >>>> Recorrido - Algoritmo Prim \n")
+grafo.prim()
+print("\n >>>> Recorrido - Algoritmo Boruvka \n")
+grafo.boruvka()
+print("\n >>>> Recorrido - Algoritmo Kruskal \n")
+grafo.kruskal()
+print("\n >>>> Camino más corto - Algoritmo Dijkstra \n")
+grafo.dijkstra("Monteria")
 
