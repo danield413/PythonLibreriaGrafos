@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 
 class Vista:
 
@@ -79,16 +80,16 @@ class Vista:
     def ejecutarObstruir(self):
         origen = self.lista_desplegable.get()
         destino = self.lista2_desplegable.get()
+        objetoOrigen = self.grafo.obtenerOrigen(origen)
+        objetoDestino = self.grafo.obtenerOrigen(destino)
+    
+        #* verificacion
+
         print( len(self.grafo.getListaAristas()) )
         self.grafo.obstruir(origen, destino)
         print( len(self.grafo.getListaAristas()) )
         self.ventanaDialogo.destroy()
-        objetoOrigen = self.grafo.obtenerOrigen(origen)
-        objetoDestino = self.grafo.obtenerOrigen(destino)
-
-        #TODO: Hacer validación si encuentra ruta alternativa
-        #*>>>> OJO <<<<<
-
+        
         self.mostrarObstruccion(objetoOrigen, objetoDestino)
 
     def listarAdyacencias(self, event):
