@@ -20,8 +20,6 @@ grafo.ingresarArista("Pereira", "Monteria", 150)
 grafo.ingresarArista("Manizales", "Buga", 15)
 grafo.ingresarArista("Buga", "Manizales", 15)
 
-# grafo.ingresarArista("Bucaramanga", "Pereira", 10)
-
 grafo.ingresarArista("Manizales", "Pereira", 40)
 grafo.ingresarArista("Pereira", "Manizales", 40)
 
@@ -86,12 +84,18 @@ grafo.ingresarArista("Pereira", "Cali", 100)
 # for i in grafo.getObstruidos():
 #     print(i)
 
-print("\n >>>> Recorrido - Algoritmo Prim \n")
-grafo.prim()
-print("\n >>>> Recorrido - Algoritmo Boruvka \n")
-grafo.boruvka()
-print("\n >>>> Recorrido - Algoritmo Kruskal \n")
-grafo.kruskal()
-print("\n >>>> Camino más corto - Algoritmo Dijkstra \n")
-grafo.dijkstra("Monteria")
+# print("\n >>>> Recorrido - Algoritmo Prim \n")
+# grafo.prim()
+# print("\n >>>> Recorrido - Algoritmo Boruvka \n")
+# grafo.boruvka()
+# print("\n >>>> Recorrido - Algoritmo Kruskal \n")
+# grafo.kruskal()
+# print("\n >>>> Camino más corto - Algoritmo Dijkstra \n")
+# grafo.dijkstra("Monteria")
 
+# print(len(grafo.mostrarAristas()))
+# grafo.obstruir("Manizales", "Pereira")
+# print(len(grafo.mostrarAristas()))
+
+# print(">>>>>> prim 2 <<<<<<<<<<<<<<")
+# grafo.prim()

@@ -22,7 +22,7 @@ from copy import copy, deepcopy
     * Recorrido en Amplitud
     * Algoritmo de Dijkstra (Camino más corto)
     * Algoritmo de Prim
-    * Algoritmo de Borukva
+    * Algoritmo de Boruvka
     * Algoritmo de Kruskal
     * Obstruir arista
     * Desobstruir arista
@@ -219,12 +219,11 @@ class Grafo():
                 terminado = True
         
         #* Muestro las aristas finales de Prim
-        # print(conjunto)
         lista = []
         for i in range(len(aristasPrim)):
-            # print("Origen: {0} - Destino: {1} - Peso: {2}".format(aristasPrim[i].getOrigen(), aristasPrim[i].getDestino(), aristasPrim[i].getPeso()))
             lista.append([aristasPrim[i].getOrigen(), aristasPrim[i].getDestino()])
         print(lista)
+        return lista
 
     def algoritmo(self, copiaAristas, conjunto, aristasTemp, aristasPrim):
         ciclo = False
@@ -235,8 +234,8 @@ class Grafo():
         #* se toma la arista temporal con menor peso
         candidata = self.candidataPrim(aristasTemp)
         
-        #* Si no hay candidacta significa que hay un ciclo
         if(candidata != None):
+            #* Si hay un ciclo marcamos como True
             if(candidata.getOrigen() in conjunto and candidata.getDestino() in conjunto):
                 ciclo = True
             
@@ -269,7 +268,7 @@ class Grafo():
                 aristasTemp.append(arista) #* agrega a la lista de temporales, lista amarilla
                 copiaAristas.pop(copiaAristas.index(arista)) #* elimino la arista original
 
-    #* Si es dirigido, lo convierte a no dirigido
+    #* Si no es dirigido, lo convierte 
     def dirigido(self, copiaAristas):
         for elemento in copiaAristas:
             for i in range(len(copiaAristas)):
@@ -426,7 +425,7 @@ class Grafo():
                 aristasKruskal.append(menor)
 
 
-    """ALGORITMO BORUKVA"""
+    """ALGORITMO BORUVKA"""
     """Recorrido de Grafo"""
     def boruvka(self):
         copiaNodos = deepcopy(self.listaVertices)  # copia de los nodos
@@ -529,7 +528,7 @@ class Grafo():
                 self.eliminarAdyacencia(datoOrigen, datoDestino)
                 # Eliminamos a la arista de la copia
                 del self.ListaAristas[arista]
-                # self.obstruir(datoDestino, datoOrigen)
+                self.obstruir(datoDestino, datoOrigen)
                 break
 
     #* Eliminar adyacencia de un vértice origen

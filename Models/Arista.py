@@ -13,5 +13,5 @@ class Arista():
     def getPeso(self):
         return self.Peso
 
-    def __str__(self) -> str:
-        return ("Origen: {0} - Destino: {1} - Peso: {2} \n".format(self.Origen, self.Destino, self.Peso))
+    # def __str__(self) -> str:
+    #     return ("Origen: {0} - Destino: {1} - Peso: {2} \n".format(self.Origen, self.Destino, self.Peso))

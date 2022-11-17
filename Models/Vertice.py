@@ -20,5 +20,5 @@ class Vertice():
     def getAdyacentes(self):
         return self.ListaAdyacentes
 
-    def __str__(self) -> str:
-        return ("Dato: {0} - Adyacencias: {1} \n".format(self.dato, self.ListaAdyacentes))
+    # def __str__(self) -> str:
+    #     return ("Dato: {0} - Adyacencias: {1} \n".format(self.dato, self.ListaAdyacentes))

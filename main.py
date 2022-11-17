@@ -16,9 +16,9 @@ from Models.Vista import Vista
 
 #? GRAFO
 grafo = Grafo()
-vista = Vista()
+vista = Vista(grafo)
 
-def cargarGrafo():
+def cargarGrafo(boton):
     # Cargar el JSON
     listaVertices = JSON.cargar("./data/vertices.json")
     
@@ -34,14 +34,17 @@ def cargarGrafo():
     # verifica y convertir el grado
     grafo.convertirANoDirigido()
 
-    # Crear grafo en tkinter
-    for vertice in listaVertices:
-        vista.crearVertice(vertice["X"], vertice["Y"], vertice["dato"], vertice["rutaImagen"])
+    vista.crearVertices(listaVertices)
+    vista.crearAristas()
+       
+    boton["state"] = "disabled"
+        
 
-    for arista in grafo.ListaAristas:
-        origen = grafo.obtenerOrigen(arista.getOrigen())
-        destino = grafo.obtenerOrigen(arista.getDestino())
-        vista.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), arista.getPeso())
+def obstruirCamino():
+    if grafo == None:
+        print("No hay grafo cargado")
+    else:
+        vista.abrirVentanaDialogo()
 
 def main():
     barraMenu = Menu(vista.getVentana())
@@ -52,8 +55,8 @@ def main():
     menuRecorridos.add_command(label='Amplitud (Anchura)')
     menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita')
 
-    barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command=cargarGrafo)
-    barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir)
+    barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command= lambda: cargarGrafo(mnuCrear) )
+    barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir, command=obstruirCamino)
     barraMenu.add_cascade(label='Recorridos', menu=menuRecorridos)
 
     vista.getVentana().config(menu=barraMenu)
