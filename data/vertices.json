@@ -3,16 +3,16 @@
         "dato": "Gadner",
         "adyacencias": [
             {
-                "destino": "Euler",
-                "peso": 415
-            },
-            {
                 "destino": "Voronoi",
                 "peso": 170
             },
             {
                 "destino": "Fibonacci",
                 "peso": 310
+            },
+            {
+                "destino": "Euler",
+                "peso": 415
             }
         ],
         "X": 90,
@@ -23,12 +23,16 @@
         "dato": "Fibonacci",
         "adyacencias": [
             {
-                "destino": "Gadner",
-                "peso": 310
+                "destino": "Hilbert",
+                "peso": 250
             },
             {
                 "destino": "Voronoi",
                 "peso": 299
+            },
+            {
+                "destino": "Gadner",
+                "peso": 310
             },
             {
                 "destino": "Casita",
@@ -37,10 +41,6 @@
             {
                 "destino": "Fahrenheit",
                 "peso": 450
-            },
-            {
-                "destino": "Hilbert",
-                "peso": 250
             }
         ],
         "X": 80,
@@ -51,12 +51,12 @@
         "dato": "Hilbert",
         "adyacencias": [
             {
-                "destino": "Fibonacci",
-                "peso": 250
-            },
-            {
                 "destino": "Fahrenheit",
                 "peso": 230
+            },
+            {
+                "destino": "Fibonacci",
+                "peso": 250
             },
             {
                 "destino": "Celsius",
@@ -71,16 +71,16 @@
         "dato": "Celsius",
         "adyacencias": [
             {
-                "destino": "Hilbert",
-                "peso": 312
-            },
-            {
                 "destino": "Fahrenheit",
                 "peso": 255
             },
             {
                 "destino": "Ritcher",
                 "peso": 280
+            },
+            {
+                "destino": "Hilbert",
+                "peso": 312
             },
             {
                 "destino": "Konisberg",
@@ -95,10 +95,6 @@
         "dato": "Konisberg",
         "adyacencias": [
             {
-                "destino": "Celsius",
-                "peso": 450
-            },
-            {
                 "destino": "Ritcher",
                 "peso": 225
             },
@@ -109,6 +105,10 @@
             {
                 "destino": "Euler",
                 "peso": 300
+            },
+            {
+                "destino": "Celsius",
+                "peso": 450
             }
         ],
         "X": 640,
@@ -119,20 +119,20 @@
         "dato": "Euler",
         "adyacencias": [
             {
-                "destino": "Konisberg",
-                "peso": 300
-            },
-            {
                 "destino": "Gauss",
                 "peso": 230
             },
             {
-                "destino": "Casita",
-                "peso": 330
+                "destino": "Konisberg",
+                "peso": 300
             },
             {
                 "destino": "Voronoi",
                 "peso": 317
+            },
+            {
+                "destino": "Casita",
+                "peso": 330
             },
             {
                 "destino": "Gadner",
@@ -147,20 +147,20 @@
         "dato": "Voronoi",
         "adyacencias": [
             {
-                "destino": "Euler",
-                "peso": 317
+                "destino": "Gadner",
+                "peso": 170
             },
             {
                 "destino": "Casita",
                 "peso": 190
             },
             {
-                "destino": "Gadner",
-                "peso": 170
-            },
-            {
                 "destino": "Fibonacci",
                 "peso": 299
+            },
+            {
+                "destino": "Euler",
+                "peso": 317
             }
         ],
         "X": 220,
@@ -171,20 +171,20 @@
         "dato": "Casita",
         "adyacencias": [
             {
-                "destino": "Voronoi",
-                "peso": 190
-            },
-            {
-                "destino": "Euler",
-                "peso": 330
-            },
-            {
                 "destino": "Gauss",
                 "peso": 180
             },
             {
                 "destino": "Fahrenheit",
                 "peso": 180
+            },
+            {
+                "destino": "Voronoi",
+                "peso": 190
+            },
+            {
+                "destino": "Euler",
+                "peso": 330
             },
             {
                 "destino": "Fibonacci",
@@ -203,24 +203,24 @@
                 "peso": 180
             },
             {
-                "destino": "Gauss",
-                "peso": 314
+                "destino": "Hilbert",
+                "peso": 230
+            },
+            {
+                "destino": "Celsius",
+                "peso": 255
             },
             {
                 "destino": "Ritcher",
                 "peso": 267
             },
             {
-                "destino": "Hilbert",
-                "peso": 230
+                "destino": "Gauss",
+                "peso": 314
             },
             {
                 "destino": "Fibonacci",
                 "peso": 450
-            },
-            {
-                "destino": "Celsius",
-                "peso": 255
             }
         ],
         "X": 450,
@@ -231,24 +231,24 @@
         "dato": "Gauss",
         "adyacencias": [
             {
-                "destino": "Fahrenheit",
-                "peso": 314
+                "destino": "Casita",
+                "peso": 180
             },
             {
                 "destino": "Ritcher",
                 "peso": 198
             },
             {
-                "destino": "Konisberg",
-                "peso": 275
-            },
-            {
                 "destino": "Euler",
                 "peso": 230
             },
             {
-                "destino": "Casita",
-                "peso": 180
+                "destino": "Konisberg",
+                "peso": 275
+            },
+            {
+                "destino": "Fahrenheit",
+                "peso": 314
             }
         ],
         "X": 450,
@@ -263,16 +263,16 @@
                 "peso": 198
             },
             {
+                "destino": "Konisberg",
+                "peso": 225
+            },
+            {
                 "destino": "Fahrenheit",
                 "peso": 267
             },
             {
                 "destino": "Celsius",
                 "peso": 280
-            },
-            {
-                "destino": "Konisberg",
-                "peso": 225
             }
         ],
         "X": 580,

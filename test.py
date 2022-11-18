@@ -35,6 +35,8 @@ grafo.ingresarArista("Tulua", "Cali", 110)
 grafo.ingresarArista("Cali", "Pereira", 100)
 grafo.ingresarArista("Pereira", "Cali", 100)
 
+print( grafo.recorridoAmplitud("Manizales") )
+print( grafo.recorridoProfundidad("Manizales") )
 
 # print( len(grafo.getListaAristas()) )
 # grafo.convertirANoDirigido()

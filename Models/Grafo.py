@@ -148,8 +148,10 @@ class Grafo():
         lista = self.ListaAristas
         lista.sort(key=lambda x: x.getPeso())
         
-        for i in range(len(lista)):
-            print("Origen: {0} - Destino: {1} - Peso: {2}".format(lista[i].getOrigen(), lista[i].getDestino(), lista[i].getPeso()))
+        # for i in range(len(lista)):
+        #     print("Origen: {0} - Destino: {1} - Peso: {2}".format(lista[i].getOrigen(), lista[i].getDestino(), lista[i].getPeso()))
+
+        return lista
 
     def fuenteConMasAdyacentes(self):
         lista = []
@@ -161,6 +163,27 @@ class Grafo():
         if(lista != []):
             return lista[0]
         else: return None
+
+    def obtenerParesDeElementos(self, listaElementos):
+        '''Retorna una lista fragmentada en pares (función recursiva). Ejemplo: 
+        [1,2,3,4,5] => [[1,2], [2,3], [3,4], [4,5]]'''
+        if len(listaElementos) == 2:
+            return [listaElementos]
+
+        # Obtener el par de elementos para este entorno
+        parDeEsteEntorno = [listaElementos[0], listaElementos[1]]
+
+        # Quitar el primer elemento de la lista
+        listaElementos.pop(0)
+
+        # Obtener las demás listas de pares
+        listasDeParesDeElementos = self.obtenerParesDeElementos(listaElementos)
+
+        # Agregar el par de este entorno junto a los demás pares
+        listasDeParesDeElementos.insert(0, parDeEsteEntorno)
+
+        # Retornar la lista total con los pares de elementos
+        return listasDeParesDeElementos
         
     def recorridoProfundidad(self, dato): 
         if( dato in self.visistadosCp ):

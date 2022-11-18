@@ -36,8 +36,16 @@ def cargarGrafo(boton):
 
     vista.crearVertices(listaVertices)
     vista.crearAristas()
-       
     boton["state"] = "disabled"
+
+    x = grafo.recorridoAmplitud("Casita") 
+    # print(x)
+    print( grafo.obtenerParesDeElementos(x) )
+    # grafo.mostrarAristasOrdenadas()
+    # y = grafo.recorridoProfundidad("Casita")
+    # print(y)
+    # print( grafo.obtenerParesDeElementos(y) )
+    # print( grafo.recorridoProfundidad("Casita") )
         
 
 def obstruirCamino():
@@ -46,13 +54,23 @@ def obstruirCamino():
     else:
         vista.abrirVentanaDialogo()
 
+def profundidad():
+    profundidad = grafo.recorridoProfundidad("Casita")
+    print(profundidad)
+    vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(profundidad) )
+
+def amplitud():
+    amplitud = grafo.recorridoAmplitud("Casita")
+    print(amplitud)
+    vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(amplitud) )
+
 def main():
     barraMenu = Menu(vista.getVentana())
     mnuCrear = Button(barraMenu)
     mnuObstruir = Button(barraMenu)
     menuRecorridos = Menu(barraMenu)
-    menuRecorridos.add_command(label='Profundidad')
-    menuRecorridos.add_command(label='Amplitud (Anchura)')
+    menuRecorridos.add_command(label='Profundidad', command=profundidad)
+    menuRecorridos.add_command(label='Amplitud (Anchura)', command=amplitud)
     menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita')
 
     barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command= lambda: cargarGrafo(mnuCrear) )

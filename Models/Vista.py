@@ -59,6 +59,13 @@ class Vista:
         self.myCanvas.create_text(x+5, y-35, text=nombre, font="Arial 9 bold")
         return idImg
 
+    def crearAristasRecorrido(self, recorrido):
+        self.myCanvas.delete("recorrido")
+        for arista in recorrido:
+            origen = self.grafo.obtenerOrigen(arista[0])
+            destino = self.grafo.obtenerOrigen(arista[1])
+            self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, "#16A200", "recorrido")
+
     def crearAristas(self):
         for arista in self.grafo.ListaAristas:
             origen = self.grafo.obtenerOrigen(arista.getOrigen())
