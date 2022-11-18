@@ -18,9 +18,12 @@ from Models.Vista import Vista
 grafo = Grafo()
 vista = Vista(grafo)
 
-def cargarGrafo(boton):
+listaVertices = JSON.cargar("./data/vertices.json")
+
+def cargarGrafo():
+    vista.resetear()
+
     # Cargar el JSON
-    listaVertices = JSON.cargar("./data/vertices.json")
     
     # Ingresar los vertices
     for vertice in listaVertices:
@@ -34,10 +37,9 @@ def cargarGrafo(boton):
     # verifica y convertir el grado
     grafo.convertirANoDirigido()
 
-    vista.crearVertices(listaVertices)
-    vista.crearAristas()
-    boton["state"] = "disabled"
+    cargarVista()
 
+    #* debug
     # x = grafo.recorridoAmplitud("Casita") 
     # print(x)
 
@@ -56,24 +58,27 @@ def obstruirCamino():
     else:
         vista.abrirVentanaDialogo()
 
+def cargarVista():
+    vista.crearVertices(listaVertices)
+    vista.crearAristas()
+
 def profundidad():
+    cargarVista()
     profundidad = grafo.recorridoProfundidad("Casita")
     print(profundidad)
     vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(profundidad), "P" )
 
 def amplitud():
+    cargarVista()
     aristas = grafo.recorridoAmplitud2("Casita") 
     l = []
     for arista in aristas:
         l.append([arista.getOrigen(), arista.getDestino()])
     vista.crearAristasRecorrido(l, "A")
-    # amplitud = grafo.recorridoAmplitud("Casita")
-    # print(amplitud)
-    # vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(amplitud), "A" )
 
 def dijkstra():
+    cargarVista()
     dijkstra = grafo.dijkstra("Casita")
-    print("dijkstra")
     print(dijkstra)
     vista.crearAristasRecorrido( dijkstra, "D" )
 
@@ -86,7 +91,7 @@ def main():
     menuRecorridos.add_command(label='Amplitud (Anchura)', command=amplitud)
     menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita', command=dijkstra)
 
-    barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command= lambda: cargarGrafo(mnuCrear) )
+    barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command=cargarGrafo )
     barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir, command=obstruirCamino)
     barraMenu.add_cascade(label='Recorridos', menu=menuRecorridos)
 

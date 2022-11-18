@@ -48,6 +48,12 @@ class Vista:
         for vertice in listaVertices:
             self.crearVertice(vertice["X"], vertice["Y"], vertice["dato"], vertice["rutaImagen"])
     
+    def resetear(self):
+        self.myCanvas.delete("obstruccion")
+        self.myCanvas.delete("linea")
+        self.myCanvas.delete("peso")
+        self.crearAristas()
+
     def crearVertice(self, x, y, nombre, urlImagen):
         '''Crea una nueva imagen de un planeta en el canvas.'''
         # urlImagen = "./images/casita.png"
