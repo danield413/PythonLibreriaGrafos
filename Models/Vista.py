@@ -26,6 +26,10 @@ class Vista:
         self.lista_desplegable = None
         self.lista2_desplegable = None
 
+        self.myCanvas.create_text(400, 50, text="Proyecto Grafos - Estruturas de Datos 2022-2", font="Purisa 20 bold", tags=["texto"])
+        self.myCanvas.create_text(400, 100, text="Librería ACME", font="Purisa 15 bold", tags=["texto"])
+        self.myCanvas.create_text(400, 150, text="Primero debes generar el sistema.", font="Purisa 10 bold", tags=["texto"])
+
     def agregarFondo(self):
         '''Pone una imagen de fondo en la ventana principal.'''
         try:
@@ -49,9 +53,12 @@ class Vista:
             self.crearVertice(vertice["X"], vertice["Y"], vertice["dato"], vertice["rutaImagen"])
     
     def resetear(self):
-        self.myCanvas.delete("obstruccion")
-        self.myCanvas.delete("linea")
-        self.myCanvas.delete("peso")
+        # self.myCanvas.delete("obstruccion")
+        # self.myCanvas.delete("linea")
+        # self.myCanvas.delete("peso")
+        # self.myCanvas.delete("recorrido")
+        # self.myCanvas.delete("texto")
+        self.myCanvas.delete("all")
         self.crearAristas()
 
     def crearVertice(self, x, y, nombre, urlImagen):
@@ -62,7 +69,7 @@ class Vista:
             self.imagenes)-1] = PhotoImage(file=urlImagen)
         idImg = self.myCanvas.create_image(x, y, image=self.imagenes[len(
         self.imagenes)-1], anchor="center")
-        self.myCanvas.create_text(x+5, y-35, text=nombre, font="Arial 9 bold")
+        self.myCanvas.create_text(x+5, y-35, text=nombre, font="Purisa 9 bold")
         return idImg
 
     def crearAristasRecorrido(self, recorrido, tipo):
@@ -73,11 +80,13 @@ class Vista:
             color = "#00FF00"
         elif tipo == "D":
             color = "#FF9300"
+        elif tipo == "PR":
+            color = "#00FFFF"
 
         for arista in recorrido:
             origen = self.grafo.obtenerOrigen(arista[0])
             destino = self.grafo.obtenerOrigen(arista[1])
-            self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, color, "recorrido")
+            self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, color, "recorrido", 6)
 
     def crearAristas(self):
         for arista in self.grafo.ListaAristas:
@@ -85,11 +94,11 @@ class Vista:
             destino = self.grafo.obtenerOrigen(arista.getDestino())
             self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), arista.getPeso())
 
-    def crearArista(self, x1, y1, x2, y2, peso, color="#7000FF", tag="linea"):
+    def crearArista(self, x1, y1, x2, y2, peso, color="#7000FF", tag="linea", grosor = 3):
         '''Crea una nueva linea entre dos vertices.'''
-        self.myCanvas.create_line(x1, y1+25, x2, y2+25, fill=color, width=4, tags=[tag])
+        self.myCanvas.create_line(x1, y1+25, x2, y2+25, fill=color, width=grosor, tags=[tag])
         if(peso > 0):
-            self.myCanvas.create_text((x1+x2)/2, ((y1+25+y2+25)/2)-10, text=peso, font="Helvetica 10 bold", tags=["peso"])
+            self.myCanvas.create_text((x1+x2)/2, ((y1+25+y2+25)/2)-10, text=peso, font="Purisa 10 bold", tags=["peso"])
     
     def mostrarObstruccion(self, origen, destino):
         self.myCanvas.delete("linea")
@@ -103,7 +112,7 @@ class Vista:
         objetoOrigen = self.grafo.obtenerOrigen(origen)
         objetoDestino = self.grafo.obtenerOrigen(destino)
     
-        #* verificacion
+        #TODO verificacion 
 
         print( len(self.grafo.getListaAristas()) )
         self.grafo.obstruir(origen, destino)
