@@ -40,6 +40,7 @@ class Grafo():
         self.visitadosCKruskal = []
         self.repetidos = 0
         self.obstruidos = []  
+        self.aristasAmplitud = []
 
     def getListaVertices(self):
         return self.listaVertices
@@ -212,6 +213,27 @@ class Grafo():
                         self.visitadosCa.append(dato)
 
         return self.visitadosCa
+
+    def recorridoAmplitud2(self, dato):
+        Cola = deque()
+        Vertice = self.obtenerOrigen(dato)
+        if Vertice != None:
+            self.visitadosCa.append(dato)
+            Cola.append(Vertice)
+            while Cola:
+                elemento = Cola.popleft()
+                for Adyacencia in elemento.getAdyacentes():
+                    if Adyacencia not in self.visitadosCa:
+                        Vertice = self.obtenerOrigen(Adyacencia)
+                        self.visitadosCa.append(Adyacencia)
+                        for a in self.ListaAristas:
+                            if (
+                                    a.getOrigen() == elemento.getDato()
+                                    and a.getDestino() == Adyacencia
+                            ):
+                                self.aristasAmplitud.append(a)
+                        Cola.append(Vertice)
+            return self.aristasAmplitud
 
     def ordenamiento(self, copiaAristas):
         for i in range(len(copiaAristas)):

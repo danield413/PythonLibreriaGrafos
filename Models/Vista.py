@@ -59,12 +59,19 @@ class Vista:
         self.myCanvas.create_text(x+5, y-35, text=nombre, font="Arial 9 bold")
         return idImg
 
-    def crearAristasRecorrido(self, recorrido):
+    def crearAristasRecorrido(self, recorrido, tipo):
         self.myCanvas.delete("recorrido")
+        if tipo == "P":
+            color = "#FF008B"
+        elif tipo == "A":
+            color = "#00FF00"
+        elif tipo == "D":
+            color = "#FF9300"
+
         for arista in recorrido:
             origen = self.grafo.obtenerOrigen(arista[0])
             destino = self.grafo.obtenerOrigen(arista[1])
-            self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, "#16A200", "recorrido")
+            self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, color, "recorrido")
 
     def crearAristas(self):
         for arista in self.grafo.ListaAristas:
@@ -74,7 +81,7 @@ class Vista:
 
     def crearArista(self, x1, y1, x2, y2, peso, color="#7000FF", tag="linea"):
         '''Crea una nueva linea entre dos vertices.'''
-        self.myCanvas.create_line(x1, y1+25, x2, y2+25, fill=color, width=3, tags=[tag])
+        self.myCanvas.create_line(x1, y1+25, x2, y2+25, fill=color, width=4, tags=[tag])
         if(peso > 0):
             self.myCanvas.create_text((x1+x2)/2, ((y1+25+y2+25)/2)-10, text=peso, font="Helvetica 10 bold", tags=["peso"])
     
@@ -82,7 +89,7 @@ class Vista:
         self.myCanvas.delete("linea")
         self.myCanvas.delete("peso")
         self.crearAristas()
-        self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, "red", "obstruccion")
+        self.crearArista(origen.getX(), origen.getY(), destino.getX(), destino.getY(), 0, "#000000", "obstruccion")
 
     def ejecutarObstruir(self):
         origen = self.lista_desplegable.get()

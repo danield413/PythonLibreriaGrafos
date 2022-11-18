@@ -38,9 +38,11 @@ def cargarGrafo(boton):
     vista.crearAristas()
     boton["state"] = "disabled"
 
-    x = grafo.recorridoAmplitud("Casita") 
+    # x = grafo.recorridoAmplitud("Casita") 
     # print(x)
-    print( grafo.obtenerParesDeElementos(x) )
+
+    # print(x)
+    # print( grafo.obtenerParesDeElementos(x) )
     # grafo.mostrarAristasOrdenadas()
     # y = grafo.recorridoProfundidad("Casita")
     # print(y)
@@ -57,12 +59,23 @@ def obstruirCamino():
 def profundidad():
     profundidad = grafo.recorridoProfundidad("Casita")
     print(profundidad)
-    vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(profundidad) )
+    vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(profundidad), "P" )
 
 def amplitud():
-    amplitud = grafo.recorridoAmplitud("Casita")
-    print(amplitud)
-    vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(amplitud) )
+    aristas = grafo.recorridoAmplitud2("Casita") 
+    l = []
+    for arista in aristas:
+        l.append([arista.getOrigen(), arista.getDestino()])
+    vista.crearAristasRecorrido(l, "A")
+    # amplitud = grafo.recorridoAmplitud("Casita")
+    # print(amplitud)
+    # vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(amplitud), "A" )
+
+def dijkstra():
+    dijkstra = grafo.dijkstra("Casita")
+    print("dijkstra")
+    print(dijkstra)
+    vista.crearAristasRecorrido( dijkstra, "D" )
 
 def main():
     barraMenu = Menu(vista.getVentana())
@@ -71,7 +84,7 @@ def main():
     menuRecorridos = Menu(barraMenu)
     menuRecorridos.add_command(label='Profundidad', command=profundidad)
     menuRecorridos.add_command(label='Amplitud (Anchura)', command=amplitud)
-    menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita')
+    menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita', command=dijkstra)
 
     barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command= lambda: cargarGrafo(mnuCrear) )
     barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir, command=obstruirCamino)
