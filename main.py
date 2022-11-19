@@ -21,6 +21,7 @@ listaVertices = JSON.cargar("./data/vertices.json")
 
 def cargarGrafo():
     if grafo.getListaVertices() == []:
+        vista.getCanvas().configure(bg="#ffffff")
         vista.resetear()
     
         # Ingresar los vertices
@@ -121,18 +122,18 @@ def main():
     mnuCrear = Button(barraMenu)
     mnuObstruir = Button(barraMenu)
     menuRecorridos = Menu(barraMenu)
-    mnuRutaCorta = Button(barraMenu)
 
     menuRecorridos.add_command(label='Profundidad', command=profundidad)
     menuRecorridos.add_command(label='Amplitud (Anchura)', command=amplitud)
     menuRecorridos.add_command(label='Prim - Conexión sucursales forma más óptima', command=prim)
     menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita', command=dijkstra)
-
+    menuRecorridos.add_command(label='Ruta más corta desde la casita hasta una sucursal determinada', command=rutaMasCorta)
+    menuRecorridos.add_command(label="Camino más corto entre sucursales desde un origen")
 
     barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command=cargarGrafo)
     barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir, command=obstruirCamino)
     barraMenu.add_cascade(label='Recorridos', menu=menuRecorridos)
-    barraMenu.add_cascade(label="Ruta más corta", menu=mnuRutaCorta, command=rutaMasCorta )
+
 
     vista.getVentana().config(menu=barraMenu)
     mainloop()

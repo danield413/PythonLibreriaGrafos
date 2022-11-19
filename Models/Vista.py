@@ -17,6 +17,7 @@ class Vista:
         self.ventana.resizable(width=False, height=False)
         self.myCanvas = Canvas(self.ventana)
         self.myCanvas.pack(fill=BOTH, expand=True)
+        self.myCanvas.configure(bg="#181818")
     
         self.urlFondo = "./images/fondo.png"
         # self.agregarFondo()
@@ -26,9 +27,9 @@ class Vista:
         self.lista_desplegable = None
         self.lista2_desplegable = None
 
-        self.myCanvas.create_text(400, 50, text="Proyecto Grafos - Estruturas de Datos 2022-2", font="Purisa 20 bold", tags=["texto"])
-        self.myCanvas.create_text(400, 100, text="Librería ACME", font="Purisa 15 bold", tags=["texto"])
-        self.myCanvas.create_text(400, 150, text="Primero debes generar el sistema.", font="Purisa 10 bold", tags=["texto"])
+        self.myCanvas.create_text(400, 50, text="Proyecto Grafos - Estruturas de Datos 2022-2", font="Purisa 22 bold", tags=["texto"], fill="#00FF97")
+        self.myCanvas.create_text(400, 100, text="Librería ACME", font="Purisa 18 bold", tags=["texto"], fill="#00FF97")
+        self.myCanvas.create_text(400, 250, text="Primero debes generar el sistema!", font="Purisa 14 bold", tags=["texto"], fill="#0087FF")
 
     def agregarFondo(self):
         '''Pone una imagen de fondo en la ventana principal.'''
@@ -53,11 +54,6 @@ class Vista:
             self.crearVertice(vertice["X"], vertice["Y"], vertice["dato"], vertice["rutaImagen"])
     
     def resetear(self):
-        # self.myCanvas.delete("obstruccion")
-        # self.myCanvas.delete("linea")
-        # self.myCanvas.delete("peso")
-        # self.myCanvas.delete("recorrido")
-        # self.myCanvas.delete("texto")
         self.myCanvas.delete("all")
         self.crearAristas()
 

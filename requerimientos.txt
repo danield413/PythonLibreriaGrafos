@@ -1,0 +1,38 @@
+Como se puede observar cada una de las librerías están conectadas por un camino 
+donde se puede observar la distancia entre ellas, la librería necesita una aplicación 
+con los siguientes requerimientos 
+ 
+Se desea simular todo el sistema, teniendo en cuenta: 
+1. Cargar la red inicial de sucursales de la librería que se muestra en la gráfica, 
+mediante un archivo XML o JSON. [COMPLETADO] ✅
+* El sistema debe permitir cargar cualquier grafo. 
+* Debe  identificar  en  la  carga  si  un  grafo  es  dirigido  y  convertirlo  a  no 
+dirigido. [COMPLETADO]✅
+* Como  la  ciudad  es  muy  transitada,  en  ciertas  ocasiones  algunos 
+caminos se van a encontrar bloqueados por algunos arreglos que se 
+realizan en la ciudad. [COMPLETADO]✅
+* el sistema debe permitir bloquear algún camino en específico(el 
+sistema solo debe permitir bloquear un camino si encuentra una 
+ruta alterna al vértice destino).  [COMPLETADO]✅
+ 
+2. El mensajero requiere realizar muchos recorridos partiendo de la casita:  
+* Recorrido en profundidad [COMPLETADO]✅
+* Recorrido en Anchura [COMPLETADO]✅
+* Todos los días la  empresa le  asigna  ir  a  una  librería  en  especial  a  la 
+primera  hora del  día,  es  por  esto  que  el  mensajero necesita conocer 
+la ruta mas corta desde la casita hasta cualquier sucursal, inicialmente 
+puede probar el método hasta la sucursal Celsius. [FALTA] 😓
+ 
+3. La empresa actualmente está construyendo un nuevo sistema de 
+comunicación para todas sus sucursales por tal motivo requiere: 
+* Un  diseño  que  partiendo  desde  una  sucursal  origen,  me  muestre  el 
+camino mas corto para conectar todas sus sucursales. [FALTA] 😓 
+* Un diseño que muestre la conexión a todas sus sucursales de la forma 
+más optima. [COMPLETADO]✅ <PRIM>
+* Dado un orden de las sucursales, encontrar la ruta mas corta. [FALTA] 😓
+ 
+4. La empresa por requerimiento de su lider de tecnologia solicita los 
+siguiente: 
+* El sistema tener una interfaz gráfica lo más animada posible 
+* Requiere  cualquiera  de  estos  dos  algoritmos  implementados  en  la 
+aplicación, Floyd/W arshall ,Ford/Fulkerson [ES OPCIONAL] [FALTA] 😓
