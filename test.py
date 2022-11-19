@@ -95,6 +95,8 @@ grafo.ingresarArista("Pereira", "Cali", 100)
 print("\n >>>> Camino más corto - Algoritmo Dijkstra \n")
 grafo.dijkstra("Monteria")
 
+
+
 # print(len(grafo.mostrarAristas()))
 # grafo.obstruir("Manizales", "Pereira")
 # print(len(grafo.mostrarAristas()))

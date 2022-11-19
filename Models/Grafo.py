@@ -187,6 +187,7 @@ class Grafo():
         return listasDeParesDeElementos
         
     def recorridoProfundidad(self, dato): 
+        print(len(self.ListaAristas))
         if( dato in self.visistadosCp ):
             return
         else:
@@ -227,9 +228,7 @@ class Grafo():
                         Vertice = self.obtenerOrigen(Adyacencia)
                         self.visitadosCa.append(Adyacencia)
                         for a in self.ListaAristas:
-                            if (
-                                    a.getOrigen() == elemento.getDato()
-                                    and a.getDestino() == Adyacencia
+                            if (a.getOrigen() == elemento.getDato() and a.getDestino() == Adyacencia
                             ):
                                 self.aristasAmplitud.append(a)
                         Cola.append(Vertice)
@@ -324,6 +323,7 @@ class Grafo():
     """ALGORITMO DE DIJKSTRA"""
     """Menor camino desde un vértice origen a un vértice destino"""
     def dijkstra(self, origen, VerticesAux = []):
+        print("Origen: ", origen)
         marcados = []  # la lista de los que ya hemos visitado
         caminos = []  # la lista final
         direcciones = [] #* <--- Lista de direcciones de los caminos
@@ -594,5 +594,29 @@ class Grafo():
                 del self.obstruidos[i]
                 self.desobstruir(destino, origen)
                 break
+    
+    def existeCaminoAlternativoAVertice(self, origen, destino):
+        #* Simulamos la obstruccion de la arista
+        self.obstruir(origen, destino)
+
+        #* Hacemos dijkstra partiendo del origen
+        recorrido = self.dijkstra(origen)
+        
+        #* Buscamos el destino en el recorrido 
+        for i in recorrido:
+            if i[1] == destino:
+                #* Si existe el destino, entonces existe un camino alternativo
+                #* y desobstruimos la arista
+                self.desobstruir(origen, destino)
+                return True
+
+        #* Si no existe el destino, entonces no existe un camino alternativo
+
+        #* Desobstruimos la arista
+        self.desobstruir(origen, destino)
+        return False
+
+        
+        
 
    

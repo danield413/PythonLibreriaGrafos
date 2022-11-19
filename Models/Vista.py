@@ -99,6 +99,12 @@ class Vista:
         self.myCanvas.create_line(x1, y1+25, x2, y2+25, fill=color, width=grosor, tags=[tag])
         if(peso > 0):
             self.myCanvas.create_text((x1+x2)/2, ((y1+25+y2+25)/2)-10, text=peso, font="Purisa 10 bold", tags=["peso"])
+
+    def mostrarObstrucciones(self):
+        for obstruccion in self.grafo.getObstruidos():
+            origen = self.grafo.obtenerOrigen(obstruccion.getOrigen())
+            destino = self.grafo.obtenerOrigen(obstruccion.getDestino())
+            self.mostrarObstruccion(origen, destino)
     
     def mostrarObstruccion(self, origen, destino):
         self.myCanvas.delete("linea")
@@ -112,14 +118,20 @@ class Vista:
         objetoOrigen = self.grafo.obtenerOrigen(origen)
         objetoDestino = self.grafo.obtenerOrigen(destino)
     
-        #TODO verificacion 
-
-        print( len(self.grafo.getListaAristas()) )
-        self.grafo.obstruir(origen, destino)
-        print( len(self.grafo.getListaAristas()) )
-        self.ventanaDialogo.destroy()
+        #* verificacion si existe un camino alternativo 
+        existe = self.grafo.existeCaminoAlternativoAVertice(origen, destino)
+        if existe:
+            print( len(self.grafo.getListaAristas()) )
+            self.grafo.obstruir(origen, destino)
+            print( len(self.grafo.getListaAristas()) )
+            self.ventanaDialogo.destroy()
+            
+            self.mostrarObstrucciones()
+            print(objetoOrigen.getAdyacentes())
+            print(objetoDestino.getAdyacentes())
+        else:
+            messagebox.showerror("Error", "No existe un camino alternativo entre los vertices seleccionados.")
         
-        self.mostrarObstruccion(objetoOrigen, objetoDestino)
 
     def listarAdyacencias(self, event):
         lista = self.grafo.obtenerOrigen(self.lista_desplegable.get()).getAdyacentes()

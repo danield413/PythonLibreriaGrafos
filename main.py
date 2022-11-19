@@ -18,39 +18,29 @@ from Models.Vista import Vista
 grafo = Grafo()
 vista = Vista(grafo)
 
+#? JSON
 listaVertices = JSON.cargar("./data/vertices.json")
 
 def cargarGrafo():
-    vista.resetear()
-
-    # Cargar el JSON
+    if grafo.getListaVertices() == []:
+        vista.resetear()
     
-    # Ingresar los vertices
-    for vertice in listaVertices:
-        grafo.ingresarVertices(vertice["dato"], vertice["X"], vertice["Y"])
+        # Ingresar los vertices
+        for vertice in listaVertices:
+            grafo.ingresarVertices(vertice["dato"], vertice["X"], vertice["Y"])
 
-    # Ingresar aristas
-    for vertice in listaVertices:
-        for adyacente in vertice["adyacencias"]:
-            grafo.ingresarArista(vertice["dato"], adyacente["destino"], adyacente["peso"])
+        # Ingresar aristas
+        for vertice in listaVertices:
+            for adyacente in vertice["adyacencias"]:
+                grafo.ingresarArista(vertice["dato"], adyacente["destino"], adyacente["peso"])
 
-    # verifica y convertir el grado
-    grafo.convertirANoDirigido()
+        # verifica y convertir el grado
+        grafo.convertirANoDirigido()
 
-    cargarVista()
-
-    #* debug
-    # x = grafo.recorridoAmplitud("Casita") 
-    # print(x)
-
-    # print(x)
-    # print( grafo.obtenerParesDeElementos(x) )
-    # grafo.mostrarAristasOrdenadas()
-    # y = grafo.recorridoProfundidad("Casita")
-    # print(y)
-    # print( grafo.obtenerParesDeElementos(y) )
-    # print( grafo.recorridoProfundidad("Casita") )
-        
+        cargarVista()
+    else:
+        print("Ya hay un grafo cargado :)")
+    
 
 def obstruirCamino():
     vista.getCanvas().delete("recorrido")
@@ -61,19 +51,22 @@ def obstruirCamino():
 
 def cargarVista():
     vista.getCanvas().delete("recorrido")
+    vista.getCanvas().delete("titulo-recorrido")
     vista.crearVertices(listaVertices)
     vista.crearAristas()
+    vista.mostrarObstrucciones()
 
 def profundidad():
+    grafo.visistadosCp = []
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Profundidad", anchor="nw", font="Arial 20 bold")
+    vista.getCanvas().create_text(10, 10, text="Profundidad", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     profundidad = grafo.recorridoProfundidad("Casita")
-    print(profundidad)
+    print( len(grafo.getListaAristas()) )
     vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(profundidad), "P" )
 
 def amplitud():
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Amplitud", anchor="nw", font="Arial 20 bold")
+    vista.getCanvas().create_text(10, 10, text="Amplitud", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     aristas = grafo.recorridoAmplitud2("Casita") 
     l = []
     for arista in aristas:
@@ -82,16 +75,14 @@ def amplitud():
 
 def dijkstra():
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Dijkstra", anchor="nw", font="Arial 20 bold")
+    vista.getCanvas().create_text(10, 10, text="Dijkstra", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     dijkstra = grafo.dijkstra("Casita")
-    print(dijkstra)
     vista.crearAristasRecorrido( dijkstra, "D" )
 
 def prim():
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Prim", anchor="nw", font="Arial 20 bold")
+    vista.getCanvas().create_text(10, 10, text="Prim", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     prim = grafo.prim()
-    print(prim)
     vista.crearAristasRecorrido( prim, "PR" )
 
 def rutaMasCorta():
@@ -112,7 +103,7 @@ def main():
     menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita', command=dijkstra)
 
 
-    barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command=cargarGrafo )
+    barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command=cargarGrafo)
     barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir, command=obstruirCamino)
     barraMenu.add_cascade(label='Recorridos', menu=menuRecorridos)
     barraMenu.add_cascade(label="Ruta más corta", menu=mnuRutaCorta, command=rutaMasCorta )
