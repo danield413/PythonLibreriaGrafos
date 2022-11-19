@@ -1,7 +1,5 @@
 from tkinter import *
-from PIL import Image, ImageTk
-import tkinter as tk
-from tkinter import ttk
+from tkinter import messagebox
 
 from Models.Grafo import Grafo
 from Models.JSON import JSON
@@ -44,14 +42,14 @@ def cargarGrafo():
 
 def obstruirCamino():
     vista.getCanvas().delete("recorrido")
+    vista.getCanvas().delete("titulo-recorrido")
     if grafo == None:
         print("No hay grafo cargado")
     else:
         vista.abrirVentanaDialogo()
 
 def cargarVista():
-    vista.getCanvas().delete("recorrido")
-    vista.getCanvas().delete("titulo-recorrido")
+    vista.resetear()
     vista.crearVertices(listaVertices)
     vista.crearAristas()
     vista.mostrarObstrucciones()
@@ -59,31 +57,59 @@ def cargarVista():
 def profundidad():
     grafo.visistadosCp = []
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Profundidad", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     profundidad = grafo.recorridoProfundidad("Casita")
     print( len(grafo.getListaAristas()) )
-    vista.crearAristasRecorrido( grafo.obtenerParesDeElementos(profundidad), "P" )
+
+    r = grafo.obtenerParesDeElementos(profundidad)
+
+    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(r)
+
+    if not recorridoMalo:
+        vista.getCanvas().create_text(10, 10, text="Profundidad", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
+        vista.crearAristasRecorrido( r, "P" )
+    else:
+        print("Este recorrido presenta problemas en el grafo")
+        messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
+    
 
 def amplitud():
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Amplitud", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     aristas = grafo.recorridoAmplitud2("Casita") 
     l = []
     for arista in aristas:
         l.append([arista.getOrigen(), arista.getDestino()])
-    vista.crearAristasRecorrido( l, "A" )
+
+    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(l)
+    if not recorridoMalo:
+        vista.getCanvas().create_text(10, 10, text="Amplitud", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
+        vista.crearAristasRecorrido( l, "A" )
+    else:
+        print("Este recorrido presenta problemas en el grafo")
+        messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
 
 def dijkstra():
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Dijkstra", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
+   
     dijkstra = grafo.dijkstra("Casita")
-    vista.crearAristasRecorrido( dijkstra, "D" )
+    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(dijkstra)
+    if not recorridoMalo:
+        vista.getCanvas().create_text(10, 10, text="Dijkstra", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
+        vista.crearAristasRecorrido( dijkstra, "D" )
+    else:
+        print("Este recorrido presenta problemas en el grafo")
+        messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
 
 def prim():
     cargarVista()
-    vista.getCanvas().create_text(10, 10, text="Prim", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
     prim = grafo.prim()
-    vista.crearAristasRecorrido( prim, "PR" )
+
+    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(prim)
+    if not recorridoMalo:
+        vista.getCanvas().create_text(10, 10, text="Prim", anchor="nw", font="Arial 20 bold", tags=["titulo-recorrido"])
+        vista.crearAristasRecorrido( prim, "PR" )
+    else:
+        print("Este recorrido presenta problemas en el grafo")
+        messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
 
 def rutaMasCorta():
     vista.getCanvas().delete("recorrido")

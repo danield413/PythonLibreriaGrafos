@@ -187,7 +187,6 @@ class Grafo():
         return listasDeParesDeElementos
         
     def recorridoProfundidad(self, dato): 
-        print(len(self.ListaAristas))
         if( dato in self.visistadosCp ):
             return
         else:
@@ -616,6 +615,14 @@ class Grafo():
         self.desobstruir(origen, destino)
         return False
 
+    #* Comprueba si hay una obstruccion en algun recorrido
+    #* esto no se puede hacer y hay que verificarlo
+    def comprobarObstruccionEnRecorrido(self, recorrido):
+        for arista in recorrido:
+            for obstruida in self.obstruidos:
+                if arista[0] == obstruida.getOrigen() and arista[1] == obstruida.getDestino():
+                    return True
+        return False
         
         
 
