@@ -19,6 +19,7 @@ vista = Vista(grafo)
 #? JSON
 listaVertices = JSON.cargar("./data/vertices.json")
 
+#* CARGA LA INTERFAZ GRÁFICA DE LA APLICACIÓN
 def cargarGrafo():
     if grafo.getListaVertices() == []:
         vista.getCanvas().configure(bg="#ffffff")
@@ -39,8 +40,8 @@ def cargarGrafo():
         cargarVista()
     else:
         print("Ya hay un grafo cargado :)")
-    
 
+#* LLAMA A OBSTRUIR UNA ARISTA
 def obstruirCamino():
     vista.getCanvas().delete("recorrido")
     vista.getCanvas().delete("titulo-recorrido")
@@ -49,12 +50,14 @@ def obstruirCamino():
     else:
         vista.abrirVentanaDialogo()
 
+#* Método auxiliar
 def cargarVista():
     vista.resetear()
     vista.crearVertices(listaVertices)
     vista.crearAristas()
     vista.mostrarObstrucciones()
 
+#* LLAMADA A PROFUNDIDAD DESDE LA CASITA
 def profundidad():
     grafo.visistadosCp = []
     cargarVista()
@@ -72,7 +75,7 @@ def profundidad():
         print("Este recorrido presenta problemas en el grafo")
         messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
     
-
+#* LLAMADA A AMPLITUD DESDE LA CASITA
 def amplitud():
     cargarVista()
     aristas = grafo.recorridoAmplitud2("Casita") 
@@ -88,6 +91,7 @@ def amplitud():
         print("Este recorrido presenta problemas en el grafo")
         messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
 
+#* LLAMADA A DIJKSTRA DESDE LA CASITA
 def dijkstra():
     cargarVista()
    
@@ -100,6 +104,7 @@ def dijkstra():
         print("Este recorrido presenta problemas en el grafo")
         messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
 
+#* LLAMA AL RECORRIDO PRIM
 def prim():
     cargarVista()
     prim = grafo.prim()
@@ -112,12 +117,22 @@ def prim():
         print("Este recorrido presenta problemas en el grafo")
         messagebox.showinfo("Ups...", "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido")
 
+#* RUTA MÁS CORTA DESDE LA CASITA HASTA UNA SUCURSAL ESPECÍFICA
 def rutaMasCorta():
     vista.getCanvas().delete("recorrido")
     
     #TODO ruta más corta desde la casita hasta una sucursal determinada
 
+
+#* CAMINO (RUTA) MÁS CORTO ENTRE TODAS LAS SUCURSALES PARTIENDO DE UN ORIGEN ESPECÍFICO
+def caminoMasCorto():
+    vista.getCanvas().delete("recorrido")
+    
+    #TODO camino más corto entre todas las sucursales partiendo de un origen específico
+
+""""-----------------------------------------------INICIO----------------------------------------"""
 def main():
+    #* CREA EL MENÚ EN LA VISTA
     barraMenu = Menu(vista.getVentana())
     mnuCrear = Button(barraMenu)
     mnuObstruir = Button(barraMenu)
@@ -128,12 +143,11 @@ def main():
     menuRecorridos.add_command(label='Prim - Conexión sucursales forma más óptima', command=prim)
     menuRecorridos.add_command(label='Dijkstra - camino más corto desde la casita', command=dijkstra)
     menuRecorridos.add_command(label='Ruta más corta desde la casita hasta una sucursal determinada', command=rutaMasCorta)
-    menuRecorridos.add_command(label="Camino más corto entre sucursales desde un origen")
+    menuRecorridos.add_command(label="Camino más corto entre sucursales desde un origen", command=caminoMasCorto)
 
     barraMenu.add_cascade(label="Cargar grafo", menu=mnuCrear, command=cargarGrafo)
     barraMenu.add_cascade(label="Obstruir", menu=mnuObstruir, command=obstruirCamino)
     barraMenu.add_cascade(label='Recorridos', menu=menuRecorridos)
-
 
     vista.getVentana().config(menu=barraMenu)
     mainloop()
