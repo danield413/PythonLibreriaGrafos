@@ -185,6 +185,12 @@ class Grafo():
 
         # Retornar la lista total con los pares de elementos
         return listasDeParesDeElementos
+
+    def profundidad(self, dato):
+        self.visistadosCp = []
+        print( len(self.ListaAristas) )
+        print( len(self.obstruidos) )
+        return self.recorridoProfundidad(dato)
         
     def recorridoProfundidad(self, dato): 
         if( dato in self.visistadosCp ):
@@ -355,9 +361,9 @@ class Grafo():
                     direcciones.append([aux.dato, self.obtenerOrigen(vAdya).dato])
 
                     VerticesAux[indiceNuevo] = self.listaVertices[indice].getDato()
-        print(marcados)
-        print(caminos)
-        print(direcciones)
+        # print(marcados)
+        # print(caminos)
+        # print(direcciones)
         return direcciones
 
     def menorNoMarcado(self, caminos, marcados):

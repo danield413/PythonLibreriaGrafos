@@ -59,11 +59,8 @@ def cargarVista():
 
 #* LLAMADA A PROFUNDIDAD DESDE LA CASITA
 def profundidad():
-    grafo.visistadosCp = []
     cargarVista()
-    profundidad = grafo.recorridoProfundidad("Casita")
-    # print( len(grafo.getListaAristas()) )
-
+    profundidad = grafo.profundidad("Casita")
     r = grafo.obtenerParesDeElementos(profundidad)
 
     recorridoMalo = grafo.comprobarObstruccionEnRecorrido(r)
