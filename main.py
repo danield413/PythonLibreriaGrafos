@@ -62,7 +62,7 @@ def profundidad():
     grafo.visistadosCp = []
     cargarVista()
     profundidad = grafo.recorridoProfundidad("Casita")
-    print( len(grafo.getListaAristas()) )
+    # print( len(grafo.getListaAristas()) )
 
     r = grafo.obtenerParesDeElementos(profundidad)
 
@@ -80,6 +80,7 @@ def amplitud():
     cargarVista()
     aristas = grafo.recorridoAmplitud2("Casita") 
     l = []
+    #* ["origen", "destino"] <- l
     for arista in aristas:
         l.append([arista.getOrigen(), arista.getDestino()])
 

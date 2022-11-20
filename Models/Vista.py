@@ -117,14 +117,14 @@ class Vista:
         #* verificacion si existe un camino alternativo 
         existe = self.grafo.existeCaminoAlternativoAVertice(origen, destino)
         if existe:
-            print( len(self.grafo.getListaAristas()) )
+            # print( len(self.grafo.getListaAristas()) )
             self.grafo.obstruir(origen, destino)
-            print( len(self.grafo.getListaAristas()) )
+            # print( len(self.grafo.getListaAristas()) )
             self.ventanaDialogo.destroy()
             
             self.mostrarObstrucciones()
-            print(objetoOrigen.getAdyacentes())
-            print(objetoDestino.getAdyacentes())
+            # print(objetoOrigen.getAdyacentes())
+            # print(objetoDestino.getAdyacentes())
         else:
             messagebox.showerror("Error", "No existe un camino alternativo entre los vertices seleccionados.")
         

@@ -26,7 +26,7 @@ puede probar el método hasta la sucursal Celsius. [FALTA] 😓
 3. La empresa actualmente está construyendo un nuevo sistema de 
 comunicación para todas sus sucursales por tal motivo requiere: 
 * Un  diseño  que  partiendo  desde  una  sucursal  origen,  me  muestre  el 
-camino mas corto para conectar todas sus sucursales. [FALTA] 😓 
+camino mas corto para conectar todas sus sucursales. [FALTA] 😓 DIJKSTRA<<<<
 * Un diseño que muestre la conexión a todas sus sucursales de la forma 
 más optima. [COMPLETADO]✅ <PRIM>
 * Dado un orden de las sucursales, encontrar la ruta mas corta. [FALTA] 😓

@@ -602,6 +602,7 @@ class Grafo():
         recorrido = self.dijkstra(origen)
         
         #* Buscamos el destino en el recorrido 
+        #* ["origen", "destino"]
         for i in recorrido:
             if i[1] == destino:
                 #* Si existe el destino, entonces existe un camino alternativo
