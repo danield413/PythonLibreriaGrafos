@@ -1,7 +1,7 @@
 from Models.Arista import *
 from Models.Vertice import *
 from collections import deque
-from copy import copy, deepcopy  
+from copy import copy, deepcopy
 
 """
     Clase Grafo que contiene los métodos para la creación de un grafo:
@@ -29,17 +29,18 @@ from copy import copy, deepcopy
     * Mostrar aristas obstruidas
     * Mostrar aristas desobstruidas
 """
-class Grafo():
 
+
+class Grafo:
     def __init__(self):
         self.listaVertices = []
         self.ListaAristas = []
-        self.visistadosCp = []  
+        self.visistadosCp = []
         self.visitadosCa = []
         self.adyacencias = {}
         self.visitadosCKruskal = []
         self.repetidos = 0
-        self.obstruidos = []  
+        self.obstruidos = []
         self.aristasAmplitud = []
 
     def getListaVertices(self):
@@ -51,15 +52,17 @@ class Grafo():
     def getObstruidos(self):
         lista = []
         for obstruido in self.obstruidos:
-            lista.append(obstruido)        
+            lista.append(obstruido)
         return lista
 
     def convertirANoDirigido(self):
         for arista in self.ListaAristas:
-            if( not self.obtenerArista(arista.getDestino(), arista.getOrigen()) ):
-                self.ingresarArista(arista.getDestino(), arista.getOrigen(), arista.getPeso())
+            if not self.obtenerArista(arista.getDestino(), arista.getOrigen()):
+                self.ingresarArista(
+                    arista.getDestino(), arista.getOrigen(), arista.getPeso()
+                )
 
-    def ingresarVertices(self, dato, x = 0, y = 0):
+    def ingresarVertices(self, dato, x=0, y=0):
         if not self.verificarExisteVertice(dato, self.listaVertices):
             self.listaVertices.append(Vertice(dato, x, y))
 
@@ -71,8 +74,12 @@ class Grafo():
 
     def mostrarVertices(self):
         for i in range(len(self.listaVertices)):
-            print("Vertice: {0} - Adyacencias: {1}".format(self.listaVertices[i].getDato(),
-            self.listaVertices[i].getAdyacentes()))
+            print(
+                "Vertice: {0} - Adyacencias: {1}".format(
+                    self.listaVertices[i].getDato(),
+                    self.listaVertices[i].getAdyacentes(),
+                )
+            )
 
     def getGrado(self):
         cont = 0
@@ -83,11 +90,15 @@ class Grafo():
     def ingresarArista(self, origen, destino, peso):
         # Verificar si existe el origen y el destino y no este ya la arista
         if not self.verificarExisteArista(origen, destino, self.ListaAristas):
-            if self.verificarExisteVertice(origen, self.listaVertices) and self.verificarExisteVertice(destino, self.listaVertices):
+            if self.verificarExisteVertice(
+                origen, self.listaVertices
+            ) and self.verificarExisteVertice(destino, self.listaVertices):
                 # Ingreso la arista
-                self.ListaAristas.append(Arista(origen, destino, peso)) 
+                self.ListaAristas.append(Arista(origen, destino, peso))
                 # Ingreso la adyacencia en el vertice origen
-                self.obtenerOrigen(origen).getAdyacentes().append(destino) #adyacencias
+                self.obtenerOrigen(origen).getAdyacentes().append(
+                    destino
+                )  # adyacencias
 
     def obtenerOrigen(self, origen) -> Vertice:
         for vertice in self.listaVertices:
@@ -103,16 +114,22 @@ class Grafo():
 
     def mostrarAristas(self):
         for i in range(len(self.ListaAristas)):
-            print("Origen: {0} - Destino: {1} - Peso: {2}".format(self.ListaAristas[i].getOrigen(), self.ListaAristas[i].getDestino(), self.ListaAristas[i].getPeso()))
+            print(
+                "Origen: {0} - Destino: {1} - Peso: {2}".format(
+                    self.ListaAristas[i].getOrigen(),
+                    self.ListaAristas[i].getDestino(),
+                    self.ListaAristas[i].getPeso(),
+                )
+            )
         return self.ListaAristas
 
     def numeroPozos(self):
         cont = 0
-        for i in (self.listaVertices):
-            if(i.getAdyacentes() == []):
+        for i in self.listaVertices:
+            if i.getAdyacentes() == []:
                 cont += 1
         return cont
-                
+
     def lleganAristas(self, vertice):
         for arista in self.ListaAristas:
             if arista.getDestino() == vertice.getDato():
@@ -130,25 +147,27 @@ class Grafo():
         cont = 0
         for arista in self.ListaAristas:
             cont += arista.getPeso()
-        return cont/len(self.ListaAristas)
+        return cont / len(self.ListaAristas)
 
     def obtenerArista(self, origen, destino) -> Arista:
         for arista in self.ListaAristas:
-            if (arista.getOrigen() == origen and arista.getDestino() == destino):
+            if arista.getOrigen() == origen and arista.getDestino() == destino:
                 return arista
         return None
 
-    #* a diferencia del de arriba, este retorna la arista si existe, pero no importa el orden de los parametros (origen, destino) o (destino, origen), este método lo usa Dijkstra
+    # * a diferencia del de arriba, este retorna la arista si existe, pero no importa el orden de los parametros (origen, destino) o (destino, origen), este método lo usa Dijkstra
     def obtenerArista2(self, origen, destino) -> Arista:
         for arista in self.ListaAristas:
-            if (arista.getOrigen() == origen and arista.getDestino() == destino) or (arista.getOrigen() == destino and arista.getDestino() == origen):
+            if (arista.getOrigen() == origen and arista.getDestino() == destino) or (
+                arista.getOrigen() == destino and arista.getDestino() == origen
+            ):
                 return arista
         return None
-    
+
     def mostrarAristasOrdenadas(self):
         lista = self.ListaAristas
         lista.sort(key=lambda x: x.getPeso())
-        
+
         # for i in range(len(lista)):
         #     print("Origen: {0} - Destino: {1} - Peso: {2}".format(lista[i].getOrigen(), lista[i].getDestino(), lista[i].getPeso()))
 
@@ -157,17 +176,18 @@ class Grafo():
     def fuenteConMasAdyacentes(self):
         lista = []
         for vertice in self.listaVertices:
-            if(vertice.getAdyacentes() != [] and not self.lleganAristas(vertice)):
+            if vertice.getAdyacentes() != [] and not self.lleganAristas(vertice):
                 lista.append(vertice)
 
         lista.sort(key=lambda x: len(x.getAdyacentes()), reverse=True)
-        if(lista != []):
+        if lista != []:
             return lista[0]
-        else: return None
+        else:
+            return None
 
     def obtenerParesDeElementos(self, listaElementos):
-        '''Retorna una lista fragmentada en pares (función recursiva). Ejemplo: 
-        [1,2,3,4,5] => [[1,2], [2,3], [3,4], [4,5]]'''
+        """Retorna una lista fragmentada en pares (función recursiva). Ejemplo:
+        [1,2,3,4,5] => [[1,2], [2,3], [3,4], [4,5]]"""
         if len(listaElementos) == 2:
             return [listaElementos]
 
@@ -188,16 +208,16 @@ class Grafo():
 
     def profundidad(self, dato):
         self.visistadosCp = []
-        print( len(self.ListaAristas) )
-        print( len(self.obstruidos) )
+        print(len(self.ListaAristas))
+        print(len(self.obstruidos))
         return self.recorridoProfundidad(dato)
-        
-    def recorridoProfundidad(self, dato): 
-        if( dato in self.visistadosCp ):
+
+    def recorridoProfundidad(self, dato):
+        if dato in self.visistadosCp:
             return
         else:
             vertice = self.obtenerOrigen(dato)
-            if( vertice != None ):
+            if vertice != None:
                 self.visistadosCp.append(vertice.getDato())
                 for dato in vertice.getAdyacentes():
                     self.recorridoProfundidad(dato)
@@ -207,13 +227,13 @@ class Grafo():
     def recorridoAmplitud(self, dato):
         cola = deque()
         vertice = self.obtenerOrigen(dato)
-        if( vertice != None ):
+        if vertice != None:
             cola.append(vertice)
             self.visitadosCa.append(dato)
-            while( cola ):
+            while cola:
                 elemento = cola.popleft()
                 for dato in elemento.getAdyacentes():
-                    if( not dato in self.visitadosCa ):
+                    if not dato in self.visitadosCa:
                         vertice = self.obtenerOrigen(dato)
                         cola.append(vertice)
                         self.visitadosCa.append(dato)
@@ -233,7 +253,9 @@ class Grafo():
                         Vertice = self.obtenerOrigen(Adyacencia)
                         self.visitadosCa.append(Adyacencia)
                         for a in self.ListaAristas:
-                            if (a.getOrigen() == elemento.getDato() and a.getDestino() == Adyacencia
+                            if (
+                                a.getOrigen() == elemento.getDato()
+                                and a.getDestino() == Adyacencia
                             ):
                                 self.aristasAmplitud.append(a)
                         Cola.append(Vertice)
@@ -242,32 +264,33 @@ class Grafo():
     def ordenamiento(self, copiaAristas):
         for i in range(len(copiaAristas)):
             for j in range(len(copiaAristas)):
-                if(copiaAristas[i].getPeso() < copiaAristas[j].getPeso()):
+                if copiaAristas[i].getPeso() < copiaAristas[j].getPeso():
                     temp = copiaAristas[i]
                     copiaAristas[i] = copiaAristas[j]
                     copiaAristas[j] = temp
-    
+
     """Algoritmo PRIM"""
     """Recorrido de Grafo"""
+
     def prim(self):
         copiaAristas = copy(self.ListaAristas)
-        conjunto = [] #* Vertices que voy visitando
-        aristasTemp = [] #* Posibles candidatos, aristas en amarillo
-        aristasPrim = [] #* Aristas prim, aristas en verde (Finales)
+        conjunto = []  # * Vertices que voy visitando
+        aristasTemp = []  # * Posibles candidatos, aristas en amarillo
+        aristasPrim = []  # * Aristas prim, aristas en verde (Finales)
 
-        self.ordenamiento(copiaAristas) #* Ordeno las aristas por peso
-        menor = copiaAristas[0] 
-        self.dirigido(copiaAristas) #* si es dirigido, lo convierto a dirigido
-        conjunto.append(menor.getOrigen()) #* vertice para empezar
+        self.ordenamiento(copiaAristas)  # * Ordeno las aristas por peso
+        menor = copiaAristas[0]
+        self.dirigido(copiaAristas)  # * si es dirigido, lo convierto a dirigido
+        conjunto.append(menor.getOrigen())  # * vertice para empezar
 
         terminado = False
-        while(not terminado):
-            #* Empieza el algoritmo y termina cuando el conjunto de vertices visitados sea igual a la cantidad de vertices visitados
+        while not terminado:
+            # * Empieza el algoritmo y termina cuando el conjunto de vertices visitados sea igual a la cantidad de vertices visitados
             self.algoritmo(copiaAristas, conjunto, aristasTemp, aristasPrim)
-            if(len(self.listaVertices) == len(conjunto)):
+            if len(self.listaVertices) == len(conjunto):
                 terminado = True
-        
-        #* Muestro las aristas finales de Prim
+
+        # * Muestro las aristas finales de Prim
         lista = []
         for i in range(len(aristasPrim)):
             lista.append([aristasPrim[i].getOrigen(), aristasPrim[i].getDestino()])
@@ -277,30 +300,30 @@ class Grafo():
     def algoritmo(self, copiaAristas, conjunto, aristasTemp, aristasPrim):
         ciclo = False
 
-        #* Se recorren los vertices visitados y se buscan las aristas temporales
+        # * Se recorren los vertices visitados y se buscan las aristas temporales
         for vertice in conjunto:
             self.agregarAristasTemporales(copiaAristas, aristasTemp, vertice)
-        #* se toma la arista temporal con menor peso
+        # * se toma la arista temporal con menor peso
         candidata = self.candidataPrim(aristasTemp)
-        
-        if(candidata != None):
-            #* Si hay un ciclo marcamos como True
-            if(candidata.getOrigen() in conjunto and candidata.getDestino() in conjunto):
+
+        if candidata != None:
+            # * Si hay un ciclo marcamos como True
+            if candidata.getOrigen() in conjunto and candidata.getDestino() in conjunto:
                 ciclo = True
-            
-            #* Si no hay ciclo añado la arista a las aristas finales
-            #* y verifico si sus vertices ya han sido visitados y sino lo(s) agrego al conjunto 
-            if(ciclo == False):
+
+            # * Si no hay ciclo añado la arista a las aristas finales
+            # * y verifico si sus vertices ya han sido visitados y sino lo(s) agrego al conjunto
+            if ciclo == False:
                 aristasPrim.append(candidata)
-                if(not candidata.getOrigen() in conjunto):
+                if not candidata.getOrigen() in conjunto:
                     conjunto.append(candidata.getOrigen())
-                if(not candidata.getDestino() in conjunto):
+                if not candidata.getDestino() in conjunto:
                     conjunto.append(candidata.getDestino())
-    
-    #* Devuelve la arista candidata con menor peso (La más conveniente)
+
+    # * Devuelve la arista candidata con menor peso (La más conveniente)
     def candidataPrim(self, aristasTemp):
-        if(len(aristasTemp) > 0):
-            menor = aristasTemp[len(aristasTemp)-1]
+        if len(aristasTemp) > 0:
+            menor = aristasTemp[len(aristasTemp) - 1]
             for arista in aristasTemp:
                 if arista.getPeso() < menor.getPeso():
                     menor = arista
@@ -309,36 +332,46 @@ class Grafo():
             return menor
         return None
 
-    #* Agrega las aristas temporales a la lista de aristas temporales basandonos en el vertice actual
+    # * Agrega las aristas temporales a la lista de aristas temporales basandonos en el vertice actual
     def agregarAristasTemporales(self, copiaAristas, aristasTemp, vertice):
-        #* Verifica y añade aristas temporales
+        # * Verifica y añade aristas temporales
         for arista in copiaAristas:
-           if(arista.getOrigen() == vertice or arista.getDestino() == vertice): #* verifica la adyacencia
-                aristasTemp.append(arista) #* agrega a la lista de temporales, lista amarilla
-                copiaAristas.pop(copiaAristas.index(arista)) #* elimino la arista original
+            if (
+                arista.getOrigen() == vertice or arista.getDestino() == vertice
+            ):  # * verifica la adyacencia
+                aristasTemp.append(
+                    arista
+                )  # * agrega a la lista de temporales, lista amarilla
+                copiaAristas.pop(
+                    copiaAristas.index(arista)
+                )  # * elimino la arista original
 
-    #* Si no es dirigido, lo convierte 
+    # * Si no es dirigido, lo convierte
     def dirigido(self, copiaAristas):
         for elemento in copiaAristas:
             for i in range(len(copiaAristas)):
-                if(elemento.getOrigen() == copiaAristas[i].getDestino() and elemento.getDestino() == copiaAristas[i].getOrigen()):
+                if (
+                    elemento.getOrigen() == copiaAristas[i].getDestino()
+                    and elemento.getDestino() == copiaAristas[i].getOrigen()
+                ):
                     copiaAristas.pop(i)
                     break
 
     """ALGORITMO DE DIJKSTRA"""
     """Menor camino desde un vértice origen a un vértice destino"""
-    def dijkstra(self, origen, VerticesAux = []):
+
+    def dijkstra(self, origen, VerticesAux=[]):
         print("Origen: ", origen)
         marcados = []  # la lista de los que ya hemos visitado
         caminos = []  # la lista final
-        direcciones = [] #* <--- Lista de direcciones de los caminos
+        direcciones = []  # * <--- Lista de direcciones de los caminos
         # iniciar los valores en infinito
         for v in self.listaVertices:
             caminos.append(float("inf"))
             marcados.append(False)
             VerticesAux.append(None)
             if v.dato == origen:
-                #? O == Origen
+                # ? O == Origen
                 caminos[self.listaVertices.index(v)] = 0
                 VerticesAux[self.listaVertices.index(v)] = v.getDato()
         while not self.todosMarcados(marcados):
@@ -390,6 +423,7 @@ class Grafo():
 
     """ALGORITMO KRUSKAL"""
     """Recorrido de Grafo"""
+
     def quick_sort(self, array):
         lenght = len(array)
         if lenght <= 1:
@@ -418,7 +452,7 @@ class Grafo():
             self.operacionesConjuntos(menor, listaConjuntos, aristasKruskal)
         # Esta ordenada de menor a mayor
         lista = []
-        #print("la lista de conjunto se redujo a : {0}".format(len(ListaConjuntos)))
+        # print("la lista de conjunto se redujo a : {0}".format(len(ListaConjuntos)))
         for dato in aristasKruskal:
             lista.append([dato.getOrigen(), dato.getDestino()])
         print(lista)
@@ -474,9 +508,9 @@ class Grafo():
                 listaConjuntos.append({menor.getOrigen(), menor.getDestino()})
                 aristasKruskal.append(menor)
 
-
     """ALGORITMO BORUVKA"""
     """Recorrido de Grafo"""
+
     def boruvka(self):
         copiaNodos = deepcopy(self.listaVertices)  # copia de los nodos
         copiaAristas = deepcopy(self.ListaAristas)  # copia de las aristas
@@ -485,10 +519,11 @@ class Grafo():
         ListaConjuntos = []
         bandera = True
         cantidad = 0
-        while(cantidad > 1 or bandera):
+        while cantidad > 1 or bandera:
             for Nodo in copiaNodos:
                 self.operacionesConjuntosB(
-                    Nodo, ListaConjuntos, AristasBorukvka, copiaAristas)
+                    Nodo, ListaConjuntos, AristasBorukvka, copiaAristas
+                )
             bandera = False
             cantidad = self.cantidadConjuntos(ListaConjuntos)
 
@@ -502,10 +537,12 @@ class Grafo():
         cantidad = 0
         for conjunto in ListaConjuntos:
             if len(conjunto) > 0:
-                cantidad = cantidad+1
+                cantidad = cantidad + 1
         return cantidad
 
-    def operacionesConjuntosB(self, Nodo, ListaConjuntos, AristasBorukvka, copiaAristas):
+    def operacionesConjuntosB(
+        self, Nodo, ListaConjuntos, AristasBorukvka, copiaAristas
+    ):
         encontrado1 = -1
         encontrado2 = -1
         menor = self.buscarMenor(Nodo, copiaAristas)
@@ -516,7 +553,9 @@ class Grafo():
                 AristasBorukvka.append(menor)
             else:
                 for i in range(len(ListaConjuntos)):
-                    if (menor.getOrigen() in ListaConjuntos[i]) and (menor.getDestino() in ListaConjuntos[i]):
+                    if (menor.getOrigen() in ListaConjuntos[i]) and (
+                        menor.getDestino() in ListaConjuntos[i]
+                    ):
                         return False  # Camino ciclico
 
                 for i in range(len(ListaConjuntos)):
@@ -526,27 +565,33 @@ class Grafo():
                         encontrado2 = i
 
                 if encontrado1 != -1 and encontrado2 != -1:
-                    if encontrado1 != encontrado2:  # si pertenecen a dos conjuntos diferentes
+                    if (
+                        encontrado1 != encontrado2
+                    ):  # si pertenecen a dos conjuntos diferentes
                         # debo unir los dos conjuntos
-                        ListaConjuntos[encontrado1].update(
-                            ListaConjuntos[encontrado2])
+                        ListaConjuntos[encontrado1].update(ListaConjuntos[encontrado2])
                         # elimino el conjunto
                         ListaConjuntos[encontrado2].clear()
                         AristasBorukvka.append(menor)
 
-                if encontrado1 != -1 and encontrado2 == -1:  # si va unido por un conjunto
+                if (
+                    encontrado1 != -1 and encontrado2 == -1
+                ):  # si va unido por un conjunto
                     ListaConjuntos[encontrado1].update({menor.getOrigen()})
                     ListaConjuntos[encontrado1].update({menor.getDestino()})
                     AristasBorukvka.append(menor)
 
-                if encontrado1 == -1 and encontrado2 != -1:  # si va unido por un conjunto
+                if (
+                    encontrado1 == -1 and encontrado2 != -1
+                ):  # si va unido por un conjunto
                     ListaConjuntos[encontrado2].update({menor.getOrigen()})
                     ListaConjuntos[encontrado2].update({menor.getDestino()})
                     AristasBorukvka.append(menor)
 
-                if encontrado1 == -1 and encontrado2 == -1:  # si no existe en los conjuntos
-                    ListaConjuntos.append(
-                        {menor.getOrigen(), menor.getDestino()})
+                if (
+                    encontrado1 == -1 and encontrado2 == -1
+                ):  # si no existe en los conjuntos
+                    ListaConjuntos.append({menor.getOrigen(), menor.getDestino()})
                     AristasBorukvka.append(menor)
 
     def buscarMenor(self, Nodo, copiaAristas):
@@ -554,7 +599,10 @@ class Grafo():
         for adyacencia in Nodo.getAdyacentes():
             for Arista in copiaAristas:
                 # busco las aristas de esa lista de adyacencia
-                if Arista.getOrigen() == Nodo.getDato() and Arista.getDestino() == adyacencia:
+                if (
+                    Arista.getOrigen() == Nodo.getDato()
+                    and Arista.getDestino() == adyacencia
+                ):
                     temp.append(Arista)
         if temp:  # si no esta vacia
             # una vez obtenga todas las aristas, saco la menor
@@ -567,12 +615,15 @@ class Grafo():
             return temp[0]  # es la menor
 
         return None
-    
-    #* Obstruir una arista
+
+    # * Obstruir una arista
     def obstruir(self, datoOrigen, datoDestino):
         # copiaAristas = copy(self.ListaAristas)
         for arista in range(len(self.ListaAristas)):
-            if self.ListaAristas[arista].getOrigen() == datoOrigen and self.ListaAristas[arista].getDestino() == datoDestino:
+            if (
+                self.ListaAristas[arista].getOrigen() == datoOrigen
+                and self.ListaAristas[arista].getDestino() == datoDestino
+            ):
                 # Agregamos la arista a obstruidos
                 self.obstruidos.append(self.ListaAristas[arista])
                 self.eliminarAdyacencia(datoOrigen, datoDestino)
@@ -581,56 +632,134 @@ class Grafo():
                 self.obstruir(datoDestino, datoOrigen)
                 break
 
-    #* Eliminar adyacencia de un vértice origen
+    # * Eliminar adyacencia de un vértice origen
     def eliminarAdyacencia(self, datoOrigen, datoDestino):
         for vertice in range(len(self.listaVertices)):
             if datoOrigen == self.listaVertices[vertice].getDato():
-                indice = self.listaVertices[vertice].getAdyacentes().index(
-                    datoDestino)
+                indice = self.listaVertices[vertice].getAdyacentes().index(datoDestino)
                 self.listaVertices[vertice].getAdyacentes().pop(indice)
                 break
-    
-    #* Desobstruir una arista
+
+    # * Desobstruir una arista
     def desobstruir(self, origen, destino):
         for i in range(len(self.obstruidos)):
-            if self.obstruidos[i].getOrigen() == origen and self.obstruidos[i].getDestino() == destino:
-                self.ingresarArista(
-                    origen, destino, self.obstruidos[i].getPeso())
+            if (
+                self.obstruidos[i].getOrigen() == origen
+                and self.obstruidos[i].getDestino() == destino
+            ):
+                self.ingresarArista(origen, destino, self.obstruidos[i].getPeso())
                 del self.obstruidos[i]
                 self.desobstruir(destino, origen)
                 break
-    
+
     def existeCaminoAlternativoAVertice(self, origen, destino):
-        #* Simulamos la obstruccion de la arista
+        # * Simulamos la obstruccion de la arista
         self.obstruir(origen, destino)
 
-        #* Hacemos dijkstra partiendo del origen
+        # * Hacemos dijkstra partiendo del origen
         recorrido = self.dijkstra(origen)
-        
-        #* Buscamos el destino en el recorrido 
-        #* ["origen", "destino"]
+
+        # * Buscamos el destino en el recorrido
+        # * ["origen", "destino"]
         for i in recorrido:
             if i[1] == destino:
-                #* Si existe el destino, entonces existe un camino alternativo
-                #* y desobstruimos la arista
+                # * Si existe el destino, entonces existe un camino alternativo
+                # * y desobstruimos la arista
                 self.desobstruir(origen, destino)
                 return True
 
-        #* Si no existe el destino, entonces no existe un camino alternativo
+        # * Si no existe el destino, entonces no existe un camino alternativo
 
-        #* Desobstruimos la arista
+        # * Desobstruimos la arista
         self.desobstruir(origen, destino)
         return False
 
-    #* Comprueba si hay una obstruccion en algun recorrido
-    #* esto no se puede hacer y hay que verificarlo
+    # * Comprueba si hay una obstruccion en algun recorrido
+    # * esto no se puede hacer y hay que verificarlo
+    #* True si encontró algo malo
+    #* False si no lo encontró
     def comprobarObstruccionEnRecorrido(self, recorrido):
         for arista in recorrido:
             for obstruida in self.obstruidos:
-                if arista[0] == obstruida.getOrigen() and arista[1] == obstruida.getDestino():
+                if (
+                    arista[0] == obstruida.getOrigen()
+                    and arista[1] == obstruida.getDestino()
+                ):
                     return True
         return False
-        
-        
 
-   
+    # * Comprueba que el recorrido no tenga aristas que no existan en el grafo
+    #* esto ayuda a saber cuando el recorrido da mal y no se puede hacer
+    #* True si encontró algo malo
+    #* False si no lo encontró
+    def comprobarValidezEnRecorrido(self, recorrido):
+        for arista in recorrido:
+            if not self.obtenerArista(arista[0], arista[1]):
+                return True
+        return False
+
+    def cortoCamino(self, origen, destino):
+        verticesAux = []
+        verticesD = []
+
+        caminos = self.OrdenarCorto(origen, verticesAux)
+        cont = 0
+
+        self.rutas(verticesD, verticesAux, destino, origen)
+
+        aristas = []
+        for i in range(len(verticesD) - 1):
+            aristas.append(self.obtenerArista(verticesD[i], verticesD[i + 1]))
+
+        aristasString = []
+        for i in aristas:
+            aristasString.append([i.getOrigen(), i.getDestino()])
+            # print(i.getOrigen(), "----", i.getDestino(), "--->", i.getPeso())
+
+        return aristasString
+
+    def OrdenarCorto(self, origen, verticesAux):
+        visitados = []  # lista de visitados
+        caminos = []  # recorrido final
+
+        for v in self.listaVertices:  # inicia r los valores en infinito
+            caminos.append(float("inf"))
+            visitados.append(False)
+            verticesAux.append(None)
+            if v.getDato() == origen:
+                caminos[self.listaVertices.index(v)] = 0
+                verticesAux[self.listaVertices.index(v)] = v.getDato()
+        while not self.todosMarcados(visitados):  # aca!!!!!!!!!!!
+            menorAux = self.menorNoMarcado(
+                caminos, visitados
+            )  # obtiene el menor no visitado
+            if menorAux == None:
+                break
+            indice = self.listaVertices.index(menorAux)  # indice del menor no marcado
+            visitados[indice] = True
+            valorActual = caminos[indice]
+
+            for adyacencia in menorAux.getAdyacentes():
+                indiceNuevo = self.listaVertices.index(self.obtenerOrigen(adyacencia))
+                arista = self.obtenerArista2(adyacencia, menorAux.getDato())
+                if caminos[indiceNuevo] > valorActual + arista.getPeso():
+                    caminos[indiceNuevo] = valorActual + arista.getPeso()
+                    verticesAux[indiceNuevo] = self.listaVertices[indice].getDato()
+
+        return caminos
+
+    def rutas(self, verticesD, verticesAux, destino, origen):
+        verticeDestino = self.obtenerOrigen(destino)
+        indice = self.listaVertices.index(verticeDestino)
+
+        if verticesAux[indice] == None:
+            print("No hay camino entre: ", (origen, destino))
+            return
+        aux = destino
+
+        while aux != origen:
+            verticeDestino = self.obtenerOrigen(aux)
+            indice = self.listaVertices.index(verticeDestino)
+            verticesD.insert(0, aux)
+            aux = verticesAux[indice]
+        verticesD.insert(0, aux)

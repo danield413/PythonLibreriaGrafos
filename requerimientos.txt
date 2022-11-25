@@ -21,7 +21,8 @@ ruta alterna al vértice destino).  [COMPLETADO]✅
 * Todos los días la  empresa le  asigna  ir  a  una  librería  en  especial  a  la 
 primera  hora del  día,  es  por  esto  que  el  mensajero necesita conocer 
 la ruta mas corta desde la casita hasta cualquier sucursal, inicialmente 
-puede probar el método hasta la sucursal Celsius. [FALTA] 😓
+puede probar el método hasta la sucursal Celsius. [COMPLETADO - FALTA MOSTRAR] ✅
+ 
  
 3. La empresa actualmente está construyendo un nuevo sistema de 
 comunicación para todas sus sucursales por tal motivo requiere: 
