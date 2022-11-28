@@ -171,7 +171,6 @@ def prim():
 # * RUTA MÁS CORTA DESDE LA CASITA HASTA UNA SUCURSAL ESPECÍFICA
 def rutaMasCorta():
     vista.getCanvas().delete("recorrido")
-
     vista.getCanvas().delete("titulo-recorrido")
     if grafo == None:
         print("No hay grafo cargado")
@@ -182,6 +181,11 @@ def rutaMasCorta():
 # * CAMINO (RUTA) MÁS CORTO ENTRE TODAS LAS SUCURSALES PARTIENDO DE UN ORIGEN ESPECÍFICO
 def caminoMasCorto():
     vista.getCanvas().delete("recorrido")
+    vista.getCanvas().delete("titulo-recorrido")
+    if grafo == None:
+        print("No hay grafo cargado")
+    else:
+        vista.abrirVentanaDialogoRutaCorta()
 
 
 """"-----------------------------------------------INICIO----------------------------------------"""

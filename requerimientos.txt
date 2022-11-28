@@ -21,13 +21,13 @@ ruta alterna al vértice destino).  [COMPLETADO]✅
 * Todos los días la  empresa le  asigna  ir  a  una  librería  en  especial  a  la 
 primera  hora del  día,  es  por  esto  que  el  mensajero necesita conocer 
 la ruta mas corta desde la casita hasta cualquier sucursal, inicialmente 
-puede probar el método hasta la sucursal Celsius. [COMPLETADO - FALTA MOSTRAR] ✅
+puede probar el método hasta la sucursal Celsius. [COMPLETADO] ✅
  
  
 3. La empresa actualmente está construyendo un nuevo sistema de 
 comunicación para todas sus sucursales por tal motivo requiere: 
 * Un  diseño  que  partiendo  desde  una  sucursal  origen,  me  muestre  el 
-camino mas corto para conectar todas sus sucursales. [FALTA] 😓 DIJKSTRA<<<<
+camino mas corto para conectar todas sus sucursales. ✅ 
 * Un diseño que muestre la conexión a todas sus sucursales de la forma 
 más optima. [COMPLETADO]✅ <PRIM>
 * Dado un orden de las sucursales, encontrar la ruta mas corta. [FALTA] 😓
@@ -37,3 +37,5 @@ siguiente:
 * El sistema tener una interfaz gráfica lo más animada posible 
 * Requiere  cualquiera  de  estos  dos  algoritmos  implementados  en  la 
 aplicación, Floyd/W arshall ,Ford/Fulkerson [ES OPCIONAL] [FALTA] 😓
+
+

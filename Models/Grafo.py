@@ -28,6 +28,7 @@ from copy import copy, deepcopy
     * Desobstruir arista
     * Mostrar aristas obstruidas
     * Mostrar aristas desobstruidas
+    * Y Algunos métodos extras...
 """
 
 

@@ -187,7 +187,20 @@ class Vista:
                 "Error",
                 "No existe un camino alternativo entre los vertices seleccionados.",
             )
-        
+
+    def ejecutarRuta(self):
+        origen = self.lista_desplegable.get()
+
+        objetoOrigen = self.grafo.obtenerOrigen(origen)
+
+        vista = self.grafo.dijkstra(origen)
+        self.crearAristasRecorrido(vista, "D")
+
+        self.ventanaDialogo.destroy()
+        self.mostrarObstrucciones()
+
+        self.lista_desplegable = None
+        self.lista2_desplegable = None
 
     def ejecutarCorto(self):
         origen = "Casita"
@@ -209,7 +222,7 @@ class Vista:
 
     def listarAdyacencias(self, event):
         lista = self.grafo.obtenerOrigen(self.lista_desplegable.get()).getAdyacentes()
-        if(self.lista2_desplegable != None):
+        if self.lista2_desplegable != None:
             self.lista2_desplegable.config(values=lista)
 
     def abrirVentanaDialogo(self):
@@ -248,6 +261,7 @@ class Vista:
 
     def abrirVentanaDialogoCaminoCorto(self):
         """Crea una ventana de dialogo para ingresar datos."""
+        self.ventanaDialogo = None
         self.ventanaDialogo = tk.Toplevel()
         self.ventanaDialogo.geometry("300x200")
         self.ventanaDialogo.title("Camino mas corto")
@@ -265,16 +279,39 @@ class Vista:
         self.lista_desplegable["values"] = labels
         self.lista_desplegable.pack()
 
-        # l2 = Label(self.ventanaDialogo, text="Selecciona el vertice destino: ")
-        # l2.pack()
-
-        # self.lista2_desplegable = ttk.Combobox(self.ventanaDialogo, width=17)
-        # self.lista2_desplegable.pack()
-
         self.lista_desplegable.bind("<<ComboboxSelected>>", self.listarAdyacencias)
 
         button = Button(
             self.ventanaDialogo, text="Camino más corto", command=self.ejecutarCorto
+        )
+        button.pack()
+
+        self.ventanaDialogo.mainloop()
+
+    def abrirVentanaDialogoRutaCorta(self):
+        """Crea una ventana de dialogo para ingresar datos."""
+        self.ventanaDialogo = None
+        self.ventanaDialogo = tk.Toplevel()
+        self.ventanaDialogo.geometry("300x200")
+        self.ventanaDialogo.title("Camino mas corto")
+        self.ventanaDialogo.resizable(width=False, height=False)
+
+        labels = []
+        for vertice in self.grafo.getListaVertices():
+            if vertice.getDato() not in labels:
+                labels.append(vertice.getDato())
+
+        l1 = Label(self.ventanaDialogo, text="Selecciona el vertice origen")
+        l1.pack()
+
+        self.lista_desplegable = ttk.Combobox(self.ventanaDialogo, width=20)
+        self.lista_desplegable["values"] = labels
+        self.lista_desplegable.pack()
+
+        self.lista_desplegable.bind("<<ComboboxSelected>>", self.listarAdyacencias)
+
+        button = Button(
+            self.ventanaDialogo, text="Camino más corto", command=self.ejecutarRuta
         )
         button.pack()
 
