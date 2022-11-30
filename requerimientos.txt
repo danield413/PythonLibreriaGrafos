@@ -30,7 +30,7 @@ comunicación para todas sus sucursales por tal motivo requiere:
 camino mas corto para conectar todas sus sucursales. ✅ 
 * Un diseño que muestre la conexión a todas sus sucursales de la forma 
 más optima. [COMPLETADO]✅ <PRIM>
-* Dado un orden de las sucursales, encontrar la ruta mas corta. [FALTA] 😓
+* Dado un orden de las sucursales, encontrar la ruta mas corta. [COMPLETADO] ✅
  
 4. La empresa por requerimiento de su lider de tecnologia solicita los 
 siguiente: 
