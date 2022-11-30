@@ -174,11 +174,42 @@ def prim():
             "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido",
         )
 
+#* LLAMA AL RECORRIDO KRUSKAL
+def kruskal():
+    cargarVista()
+    kruskal = grafo.kruskal()
+
+    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(kruskal)
+    recorridoMalo2 = grafo.comprobarValidezEnRecorrido(kruskal)
+    if not recorridoMalo and not recorridoMalo2:
+        vista.getCanvas().create_text(
+            10,
+            10,
+            text="Kruskal",
+            anchor="nw",
+            font="Arial 20 bold",
+            tags=["titulo-recorrido"],
+        )
+        vista.crearAristasRecorrido(kruskal, "KR")
+    else:
+        print("Este recorrido presenta problemas en el grafo")
+        messagebox.showinfo(
+            "Ups...",
+            "Este recorrido presenta problemas en el grafo, intenta hacer otro recorrido",
+        )
 
 # * RUTA MÁS CORTA DESDE LA CASITA HASTA UNA SUCURSAL ESPECÍFICA
 def rutaMasCorta():
     vista.getCanvas().delete("recorrido")
     vista.getCanvas().delete("titulo-recorrido")
+    vista.getCanvas().create_text(
+            10,
+            10,
+            text="Ruta más corta a sucursal",
+            anchor="nw",
+            font="Arial 12 bold",
+            tags=["titulo-recorrido"],
+        )
     if grafo == None:
         print("No hay grafo cargado")
     else:
@@ -189,6 +220,14 @@ def rutaMasCorta():
 def caminoMasCorto():
     vista.getCanvas().delete("recorrido")
     vista.getCanvas().delete("titulo-recorrido")
+    vista.getCanvas().create_text(
+            10,
+            10,
+            text="Camino más corto desde sucursal",
+            anchor="nw",
+            font="Arial 12 bold",
+            tags=["titulo-recorrido"],
+        )
     if grafo == None:
         print("No hay grafo cargado")
     else:
@@ -205,13 +244,16 @@ def main():
     mnuObstruir = Button(barraMenu)
     menuRecorridos = Menu(barraMenu)
 
+    menuRecorridos.add_command(
+        label="Dijkstra - camino más corto desde la casita", command=dijkstra
+    )
     menuRecorridos.add_command(label="Profundidad", command=profundidad)
     menuRecorridos.add_command(label="Amplitud (Anchura)", command=amplitud)
     menuRecorridos.add_command(
         label="Prim - Conexión sucursales forma más óptima", command=prim
     )
     menuRecorridos.add_command(
-        label="Dijkstra - camino más corto desde la casita", command=dijkstra
+        label="Kruskal - ruta más corta dado un orden", command=kruskal
     )
     menuRecorridos.add_command(
         label="Ruta más corta desde la casita hasta una sucursal determinada",

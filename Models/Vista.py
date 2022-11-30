@@ -101,6 +101,8 @@ class Vista:
             color = "#00FFFF"
         elif tipo == "CR":
             color = "#FF0000"
+        elif tipo == "KR":
+            color = "#FFFF00"
 
         for arista in recorrido:
             origen = self.grafo.obtenerOrigen(arista[0])
