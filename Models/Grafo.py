@@ -420,11 +420,12 @@ class Grafo:
             valorActual = caminos[indice]
 
             for adyacencia in menorAux.getAdyacentes():
-               indiceNuevo = self.listaVertices.index(self.obtenerOrigen(adyacencia))
-               arista = self.verificarArista(menorAux.getDato(), adyacencia)
-               if caminos[indiceNuevo] > valorActual + arista.getPeso():
-                  caminos[indiceNuevo] = valorActual + arista.getPeso()
-                  verticesAux[indiceNuevo] = self.listaVertices[indice].getDato()
+                indiceNuevo = self.listaVertices.index(self.obtenerOrigen(adyacencia))
+                arista = self.verificarArista(menorAux.getDato(), adyacencia)
+                if arista != None:
+                    if caminos[indiceNuevo] > valorActual + arista.getPeso():
+                        caminos[indiceNuevo] = valorActual + arista.getPeso()
+                        verticesAux[indiceNuevo] = self.listaVertices[indice].getDato()
 
       return caminos
 
