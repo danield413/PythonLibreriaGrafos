@@ -190,11 +190,13 @@ class Vista:
 
     def ejecutarRuta(self):
         origen = self.lista_desplegable.get()
+        recorrido = self.grafo.dijkstraCompleto(origen)
+        recorridoFormateado = []
+        for arista in recorrido:
+            for a in arista:
+                recorridoFormateado.append([a.getOrigen(), a.getDestino()])
 
-        objetoOrigen = self.grafo.obtenerOrigen(origen)
-
-        vista = self.grafo.dijkstra(origen)
-        self.crearAristasRecorrido(vista, "D")
+        self.crearAristasRecorrido(recorridoFormateado, "D")
 
         self.ventanaDialogo.destroy()
         self.mostrarObstrucciones()

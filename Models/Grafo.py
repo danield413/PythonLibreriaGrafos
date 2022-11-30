@@ -361,45 +361,6 @@ class Grafo:
     """ALGORITMO DE DIJKSTRA"""
     """Menor camino desde un vértice origen a un vértice destino"""
 
-    def dijkstra(self, origen, VerticesAux=[]):
-        print("Origen: ", origen)
-        marcados = []  # la lista de los que ya hemos visitado
-        caminos = []  # la lista final
-        direcciones = []  # * <--- Lista de direcciones de los caminos
-        # iniciar los valores en infinito
-        for v in self.listaVertices:
-            caminos.append(float("inf"))
-            marcados.append(False)
-            VerticesAux.append(None)
-            if v.dato == origen:
-                # ? O == Origen
-                caminos[self.listaVertices.index(v)] = 0
-                VerticesAux[self.listaVertices.index(v)] = v.getDato()
-        while not self.todosMarcados(marcados):
-            aux = self.menorNoMarcado(caminos, marcados)  # obtuve el menor no marcado
-            if aux is None:
-                break
-            indice = self.listaVertices.index(aux)  # indice del menor no marcado
-            marcados[indice] = aux.getDato()  # marco como visitado
-            valorActual = caminos[indice]
-            for vAdya in aux.getAdyacentes():
-                indiceNuevo = self.listaVertices.index(self.obtenerOrigen(vAdya))
-                arista = self.obtenerArista2(vAdya, aux.dato)
-                if caminos[indiceNuevo] > valorActual + arista.getPeso():
-                    caminos[indiceNuevo] = valorActual + arista.getPeso()
-                    # caminos[indiceNuevo] = {
-                    #     "peso": valorActual + arista.getPeso(),
-                    #     "origen": aux.dato,
-                    #     "destino": self.obtenerOrigen(vAdya).dato
-                    # }
-                    direcciones.append([aux.dato, self.obtenerOrigen(vAdya).dato])
-
-                    VerticesAux[indiceNuevo] = self.listaVertices[indice].getDato()
-        # print(marcados)
-        # print(caminos)
-        # print(direcciones)
-        return direcciones
-
     def menorNoMarcado(self, caminos, marcados):
         verticeMenor = None
         caminosAux = sorted(caminos)
@@ -421,6 +382,101 @@ class Grafo:
             if j is False:
                 return False
         return True
+
+    def dijkstraCompleto(self, origen):
+        lista = []
+        for vertice in self.listaVertices:
+            lista.append(self.dijkstra(origen, vertice.getDato()))
+        return lista
+
+    def dijkstra(self, origen, destino):
+      verticesAux = []
+      verticesD = []
+      caminos = self.ordenarDijkstra(origen, verticesAux)
+      self.rutas(verticesD, verticesAux, destino, origen)
+      aristas = []
+      for i in range(len(verticesD)-1):
+         aristas.append(self.obtenerArista(verticesD[i],verticesD[i+1]))
+      return aristas
+
+    def ordenarDijkstra(self, origen, verticesAux):
+      visitados = []  # lista de visitados
+      caminos = []  # recorrido final
+
+      for v in self.listaVertices:  # iniciar los valores en infinito
+         caminos.append(float("inf"))
+         visitados.append(False)
+         verticesAux.append(None)
+         if v.getDato() == origen:
+            caminos[self.listaVertices.index(v)] = 0
+            verticesAux[self.listaVertices.index(v)] = v.getDato()
+
+      while not self.todosVisitados(visitados):
+            menorAux = self.menorNoVisitado(caminos, visitados)  # obtiene el menor no visitado
+            if menorAux == None:
+               break
+            indice = self.listaVertices.index(menorAux)  # indice del menor no marcado
+            visitados[indice] = True
+            valorActual = caminos[indice]
+
+            for adyacencia in menorAux.getAdyacentes():
+               indiceNuevo = self.listaVertices.index(self.obtenerOrigen(adyacencia))
+               arista = self.verificarArista(menorAux.getDato(), adyacencia)
+               if caminos[indiceNuevo] > valorActual + arista.getPeso():
+                  caminos[indiceNuevo] = valorActual + arista.getPeso()
+                  verticesAux[indiceNuevo] = self.listaVertices[indice].getDato()
+
+      return caminos
+
+    def verificarArista(self, origen, destino):
+        for i in range(len(self.ListaAristas)):
+            if origen == self.ListaAristas[i].getOrigen() and destino == self.ListaAristas[i].getDestino():
+                return self.ListaAristas[i]
+        return None
+
+    def todosVisitados(self, visitados):
+      for vertice in visitados:
+         if vertice == False:
+            return False
+
+      return True
+
+    def menorNoVisitado(self, caminos, visitados):
+        verticeMenor = None
+        caminosAux = sorted(caminos)  # de menor a mayor
+
+        copiaCaminos = copy(caminos)
+        bandera = True
+        cont = 0
+
+        while bandera:
+            menor = caminosAux[cont]
+
+            if visitados[copiaCaminos.index(menor)] == False:
+                verticeMenor = self.listaVertices[copiaCaminos.index(menor)]
+                bandera = False
+
+            else:
+                copiaCaminos[copiaCaminos.index(menor)] = "x"
+                cont += 1
+
+        return verticeMenor
+
+    def rutas(self, verticesD, verticesAux, destino, origen):
+        verticeDestino = self.obtenerOrigen(destino)
+        indice = self.listaVertices.index(verticeDestino)
+
+        if verticesAux[indice] == None:
+            print("No hay camino entre: ", (origen, destino))
+            return
+        aux = destino
+
+        while aux != origen:
+            verticeDestino = self.obtenerVertice(aux, self.listaVertices)
+            indice = self.listaVertices.index(verticeDestino)
+            verticesD.insert(0, aux)
+            aux = verticesAux[indice]
+            verticesD.insert(0, aux)
 
     """ALGORITMO KRUSKAL"""
     """Recorrido de Grafo"""
@@ -658,7 +714,11 @@ class Grafo:
         self.obstruir(origen, destino)
 
         # * Hacemos dijkstra partiendo del origen
-        recorrido = self.dijkstra(origen)
+        recorrido = []
+        r = self.dijkstraCompleto(origen)
+        for arista in r:
+            for a in arista:
+                recorrido.append([a.getOrigen(), a.getDestino()])
 
         # * Buscamos el destino en el recorrido
         # * ["origen", "destino"]

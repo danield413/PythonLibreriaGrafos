@@ -93,7 +93,7 @@ grafo.ingresarArista("Pereira", "Cali", 100)
 # print("\n >>>> Recorrido - Algoritmo Kruskal \n")
 # grafo.kruskal()
 print("\n >>>> Camino más corto - Algoritmo Dijkstra \n")
-grafo.dijkstra("Monteria")
+# print( grafo.dijkstra("Monteria", "Manizales") )
 
 
 

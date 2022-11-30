@@ -122,9 +122,16 @@ def amplitud():
 def dijkstra():
     cargarVista()
 
-    dijkstra = grafo.dijkstra("Casita")
-    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(dijkstra)
-    recorridoMalo2 = grafo.comprobarValidezEnRecorrido(dijkstra)
+    dijkstra = grafo.dijkstraCompleto("Casita")
+    dijkstraFormateado = []
+    for arista in dijkstra:
+        for a in arista:
+            dijkstraFormateado.append([a.getOrigen(), a.getDestino()])
+    
+    print(dijkstraFormateado)
+
+    recorridoMalo = grafo.comprobarObstruccionEnRecorrido(dijkstraFormateado)
+    recorridoMalo2 = grafo.comprobarValidezEnRecorrido(dijkstraFormateado)
     if not recorridoMalo and not recorridoMalo2:
         vista.getCanvas().create_text(
             10,
@@ -134,7 +141,7 @@ def dijkstra():
             font="Arial 20 bold",
             tags=["titulo-recorrido"],
         )
-        vista.crearAristasRecorrido(dijkstra, "D")
+        vista.crearAristasRecorrido(dijkstraFormateado, "D")
     else:
         print("Este recorrido presenta problemas en el grafo")
         messagebox.showinfo(
